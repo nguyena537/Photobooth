@@ -1,1 +1,1 @@
-# CS110Project
+# Photobooth
