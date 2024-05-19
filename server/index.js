@@ -28,8 +28,9 @@ app.use(cors());
 app.use("/auth", require("./routes/jwtAuth"));
 
 app.use("/test", require("./routes/test"));
-
+app.use("/friend", require("./routes/friend"));
 //return user info.
+
 
 app.use("/profile", require("./routes/profile"));
 
@@ -51,15 +52,10 @@ const upload = multer({
   fileFilter,
   //limits: { fileSize: 1000000000, files: 2 },
 });
+app.use("/post", authorization, upload.array("file"), require("./routes/post"));
 
-app.use("/upload", authorization, upload.array("file"), require("./routes/upload"));
+app.use("/upload", authorization, upload.array("file"), require("./routes/upload_profile"));
 
 app.listen(PORT, () => {
     console.log(`server has started on port ${PORT}`);
 }); 
-
-
-
-/* app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "client/build/index.html"));
-}); */
