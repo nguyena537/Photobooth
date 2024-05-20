@@ -25,7 +25,10 @@ const Login = () => {
                     <label htmlFor="password" className='box-text'>Password</label> <br />
                     <input type="password" name="password" id="password" className='form-boxes' required/>
                 </div>
-                <button type='submit' id='login-button'>Log in</button>
+
+                <div className="submit">
+                    <button type='submit' id='login-button'>Log in</button>
+                </div>
 
                 <hr className="separator" />
             </div>
