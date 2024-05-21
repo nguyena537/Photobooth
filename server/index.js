@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 5000;
 app.use(express.json());
 
 //app.use(express.static(path.join(__dirname, "client/build")));
-
+app.use(express.static("./server-clienta"));
 //production or dev.
 
 /* if(process.env.NODE_ENV === "production"){
@@ -30,7 +30,7 @@ app.use("/auth", require("./routes/jwtAuth"));
 app.use("/test", require("./routes/test"));
 app.use("/friend", require("./routes/friend"));
 //return user info.
-
+app.use("/comments", require("./routes/comments"));
 
 app.use("/profile", require("./routes/profile"));
 
@@ -51,6 +51,7 @@ const upload = multer({
   storage,
   fileFilter,
   //limits: { fileSize: 1000000000, files: 2 },
+
 });
 app.use("/post", authorization, upload.array("file"), require("./routes/post"));
 

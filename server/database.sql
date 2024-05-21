@@ -77,6 +77,8 @@ CREATE TABLE friends_photo(
   FOREIGN KEY (user_1_id) REFERENCES users_photo(user_id)
 )
 
+CREATE
+
 INSERT INTO users (user_name, user_email, user_password, restrictions) VALUES ('henry', 'henryly213@gmail.com', 'kthl8822', 'vegan');
 
 insert into todos (user_id, description) values ('2f99fecb-a819-42a2-b5c8-e0d0f6d1c291', 'clean room'),
@@ -108,7 +110,76 @@ INSERT INTO aa (name, description) VALUES
     ('User 3', 'Description of user 3'),
     ('User 4', 'Description of user 4');
 
+
+
+
+INSERT INTO users_photo (user_id, user_name, user_email, user_password, role, image)
+VALUES (
+    'e161c6c4-32f4-4375-949d-8b19bb9abd8c', -- Replace this with your desired UUID
+    '[deleted]',
+    'random@example.com',
+    'randompassword',
+    'user',
+    NULL -- Assuming no image for now
+);
+
 SELECT description
 FROM a
 WHERE 3 = ANY (favorited_by);
 */
+
+ALTER TABLE friends_photo
+    ADD CONSTRAINT fk_user_0_id
+    FOREIGN KEY (user_0_id)
+    REFERENCES users_photo(user_id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE;
+
+ALTER TABLE friends_photo
+    ADD CONSTRAINT fk_user_1_id
+    FOREIGN KEY (user_1_id)
+    REFERENCES users_photo(user_id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE;
+
+ALTER TABLE posts_photo
+    ADD CONSTRAINT fk_user_id
+    FOREIGN KEY (user_id)
+    REFERENCES users_photo(user_id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE;
+
+ALTER TABLE comments_photo
+    ADD CONSTRAINT fk_post_id
+    FOREIGN KEY (post_id)
+    REFERENCES posts_photo(post_id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE;
+
+ALTER TABLE comments_photo
+    ADD CONSTRAINT fk_user_id_comment
+    FOREIGN KEY (user_id)
+    REFERENCES users_photo(user_id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE;
+
+ALTER TABLE likes_photo
+    ADD CONSTRAINT fk_post_id_likes
+    FOREIGN KEY (post_id)
+    REFERENCES posts_photo(post_id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE;
+
+ALTER TABLE likes_photo
+    ADD CONSTRAINT fk_user_id_likes
+    FOREIGN KEY (user_id)
+    REFERENCES users_photo(user_id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE;
+
+ALTER TABLE todos_photo
+    ADD CONSTRAINT fk_user_id_todos
+    FOREIGN KEY (user_id)
+    REFERENCES users_photo(user_id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE;

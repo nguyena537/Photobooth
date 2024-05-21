@@ -5,7 +5,7 @@ const authorization = require("../middleware/authorization");
 const { s3Uploadv2 } = require("../utils/s3");
 
 
-router.get("/posts", authorization, async (req, res) => {
+router.get("/", authorization, async (req, res) => {
     try {
         const userId = req.user.id;
 

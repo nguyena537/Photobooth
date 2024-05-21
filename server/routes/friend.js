@@ -84,6 +84,7 @@ router.get('/getfriends', authorization, async (req, res) => {
             values: [req.user.id],
         };
 
+        
         const result = await pool.query(query);
         
         const friends = result.rows.map(row => ({
