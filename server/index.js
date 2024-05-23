@@ -24,14 +24,15 @@ app.use(express.static("./server-clienta"));
 
 app.use(cors());
 
+
 // ROUTES
 app.use("/auth", require("./routes/jwtAuth"));
-
+app.use("/like", require("./routes/like"));
 app.use("/test", require("./routes/test"));
 app.use("/friend", require("./routes/friend"));
 //return user info.
-app.use("/comments", require("./routes/comments"));
 
+app.use("/comments", require("./routes/comments"));
 app.use("/profile", require("./routes/profile"));
 
 
