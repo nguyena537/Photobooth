@@ -10,13 +10,11 @@ router.get("/", authorization, async (req, res) => {
         const userId = req.user.id;
 
         // Query to get posts from friends sorted by created_at
-
-
         const friendsPostsQuery = `
-            SELECT p.*
+            SELECT p.*, u.user_name, u.user_image
             FROM posts_photo p
             JOIN friends_photo f ON (p.user_id = f.user_0_id OR p.user_id = f.user_1_id)
-
+            JOIN users_photo u ON p.user_id = u.user_id
             WHERE (f.user_0_id = $1 OR f.user_1_id = $1) AND p.user_id != $1
             ORDER BY p.created_at DESC
             LIMIT 100;
@@ -31,9 +29,10 @@ router.get("/", authorization, async (req, res) => {
         if (remainingPostsCount > 0) {
             // Query to get random posts excluding the user's own posts and friends' posts
             const randomPostsQuery = `
-                SELECT p.*
+                SELECT p.*, u.user_name, u.user_image
                 FROM posts_photo p
                 LEFT JOIN friends_photo f ON (p.user_id = f.user_0_id OR p.user_id = f.user_1_id) AND (f.user_0_id = $1 OR f.user_1_id = $1)
+                JOIN users_photo u ON p.user_id = u.user_id
                 WHERE p.user_id != $1 AND f.user_0_id IS NULL AND f.user_1_id IS NULL
                 ORDER BY RANDOM()
                 LIMIT $2;
@@ -52,8 +51,31 @@ router.get("/", authorization, async (req, res) => {
 });
 
 
+// Endpoint to get posts by user ID
+router.get("/user/:id", authorization, async (req, res) => {
+    try {
+        const { id } = req.params;
+        
+        // Query to get posts by user ID
+        const userPostsQuery = `
+            SELECT p.*, u.user_name, u.user_image
+            FROM posts_photo p
+            JOIN users_photo u ON p.user_id = u.user_id
+            WHERE p.user_id = $1
+            ORDER BY p.created_at DESC;
+        `;
+        
+        const userPostsResult = await pool.query(userPostsQuery, [id]);
 
-//add a favorite, to do a.
+        // Respond with the user's posts
+        res.json(userPostsResult.rows);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Server error");
+    }
+});
+
+
 router.post("/", authorization, async (req, res) => {
     try {
         // Check if image file is provided
@@ -78,7 +100,7 @@ router.post("/", authorization, async (req, res) => {
 
         // Insert post data into posts_photo table
         const newPost = await pool.query(
-            "INSERT INTO posts_photo (user_id, image, description) VALUES ($1, $2, $3) RETURNING *",
+            "INSERT INTO posts_photo (user_id, post_image, description) VALUES ($1, $2, $3) RETURNING *",
             [req.user.id, imgURL, description]
         );
 
@@ -125,14 +147,30 @@ try {
 router.get("/:id", authorization, async (req, res) => {
     try {
         const { id } = req.params;
-        const user = await pool.query("select * from posts_photo where post_id = $1", [id]);
-        res.json(user.rows[0]);
+
+        // Query to get post details along with user name and image
+        const postQuery = `
+            SELECT p.*, u.user_name, u.user_image
+            FROM posts_photo p
+            JOIN users_photo u ON p.user_id = u.user_id
+            WHERE p.post_id = $1;
+        `;
+        
+        const postResult = await pool.query(postQuery, [id]);
+
+        // Check if the post exists
+        if (postResult.rows.length === 0) {
+            return res.status(404).json({ error: "Post not found" });
+        }
+
+        // Respond with the post details and user information
+        res.json(postResult.rows[0]);
     } catch (err) {
         console.error(err.message);
         res.status(500).send("Server error");
     }
-
 });
+
 
 
 module.exports = router;

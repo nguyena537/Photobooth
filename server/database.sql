@@ -13,7 +13,7 @@ CREATE TABLE users_photo(
   user_password VARCHAR(255) NOT NULL,
   
   role VARCHAR(255) NOT NULL,
-  image VARCHAR(255),
+  user_image VARCHAR(255),
   PRIMARY KEY(user_id)
 );
 
@@ -36,7 +36,7 @@ CREATE TABLE posts_photo(
   post_id SERIAL,
   user_id UUID,
   likes INTEGER DEFAULT 0,
-  image VARCHAR(255),
+  post_image VARCHAR(255),
 
 
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

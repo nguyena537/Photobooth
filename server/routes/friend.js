@@ -76,7 +76,7 @@ router.get('/getfriends', authorization, async (req, res) => {
     try {
         const query = {
             text: `
-                SELECT u.user_id, u.user_name, u.user_email, u.image
+                SELECT u.user_id, u.user_name, u.user_email, u.user_image
                 FROM friends_photo f
                 JOIN users_photo u ON (f.user_0_id = u.user_id OR f.user_1_id = u.user_id)
                 WHERE (f.user_0_id = $1 OR f.user_1_id = $1) AND u.user_id != $1
@@ -91,7 +91,7 @@ router.get('/getfriends', authorization, async (req, res) => {
             user_id: row.user_id,
             user_name: row.user_name,
             user_email: row.user_email,
-            image: row.image
+            user_image: row.user_image
         }));
 
         res.status(200).json({ friends });

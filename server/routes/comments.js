@@ -21,7 +21,7 @@ router.get('/:post_id', authorization, async (req, res) => {
                 c.comment,
                 c.parent_id,
                 u.user_name,
-                u.image
+                u.user_image
             FROM 
                 comments_photo c
             JOIN 
