@@ -8,7 +8,7 @@ const jwtGenerator = require("../utils/jwtGenerator");
 
 router.post("/register", async (req, res) => {
     try {
-        const { name, email, password } = req.body;
+        const { username, name, email, password } = req.body;
         const user = await pool.query("select * from users_photo where user_email = $1",[email]);
         if(user.rows.length !==0){
             return res.status(401).send("User already exists");
@@ -16,7 +16,7 @@ router.post("/register", async (req, res) => {
         const role = "user";
         const salt = await bcrypt.genSalt(10);
         const bcryptPwd = await bcrypt.hash(password, salt);
-        const newUser = await pool.query("insert into users_photo (user_name, role, user_email, user_password) values ($1, $2, $3, $4) returning *", [name, role, email, bcryptPwd]);
+        const newUser = await pool.query("insert into users_photo (user_name, role, user_email, user_password, user_username) values ($1, $2, $3, $4, $5) returning *", [name, role, email, bcryptPwd, username]);
         const token = jwtGenerator(newUser.rows[0].user_id, role);
         //json.sign return a token, which is a string, pass it as a json object.
         res.json({token});
