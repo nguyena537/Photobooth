@@ -76,7 +76,7 @@ router.get('/getfriends', authorization, async (req, res) => {
     try {
         const query = {
             text: `
-                SELECT u.user_id, u.user_name, u.user_email, u.user_image
+                SELECT u.user_id, u.user_username, u.user_email, u.user_image
                 FROM friends_photo f
                 JOIN users_photo u ON (f.user_0_id = u.user_id OR f.user_1_id = u.user_id)
                 WHERE (f.user_0_id = $1 OR f.user_1_id = $1) AND u.user_id != $1
