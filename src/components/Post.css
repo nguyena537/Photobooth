@@ -1,0 +1,50 @@
+.post {
+    width: 482px;
+    height: 682px;
+    background-color: #5391ed;
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    padding: 5px;
+}
+
+.post-handle, .post-interact {
+    background-color: aquamarine;
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    gap: 5px;
+}
+.post-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: solid;
+}
+
+.post-photo {
+    background-color: azure;
+    width: 320px;
+    height: 320px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.post-photo-image {
+    width: 320px;
+    height: 320px;
+}
+
+.post-interact-heart, .post-interact-comment {
+    width: 40px;
+    height: 40px;
+}
+
+.post-text {
+    background-color: antiquewhite;
+    display: flex;
+    flex-direction: column;
+}
