@@ -1,0 +1,35 @@
+.profile-picture {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+}
+
+.profile-information {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 250px;
+  text-align: center;
+  margin-bottom: 50px;
+  margin-top: 50px;
+}
+
+.profile-text {
+}
+
+.profile-posts-container {
+  display: flex;
+  justify-content: center;
+}
+
+.profile-posts {
+  display: flex;
+  flex-wrap: wrap;
+  width: 1300px;
+  gap: 65px;
+}
+
+.profile-post-image {
+  object-fit: cover;
+  width: 30%;
+}
