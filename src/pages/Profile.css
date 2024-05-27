@@ -1,6 +1,6 @@
-.profile-picture {
-  width: 200px;
-  height: 200px;
+.profile-picture, .profile-picture-not-owner {
+  width: 250px;
+  height: 250px;
   border-radius: 50%;
 }
 
@@ -13,24 +13,63 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 250px;
+  gap: 150px;
   text-align: center;
   margin-bottom: 100px;
-  margin-top: 50px;
+  margin-top: 100px;
 }
 
 .profile-text {
 }
 
+.profile-name {
+  font-size: 50px;
+  margin: 0;
+  font-weight: normal;
+}
+
 .profile-username {
   color: grey;
-  font-weight: normal;
+  font-weight: 300;
+  margin: 0;
+  margin-top: 5px;
+}
+
+.profile-bio {
+  margin-top: 20px;
+}
+
+.friend-button {
+  width: 300px;
+  height: 50px;
+  background-color: white;
+  border-radius: 30px;
+  font-weight: 500;
+  font-size: 20px;
+  margin-top: 5px;
+}
+
+.friend-button:hover {
+  background-color: black;
+  cursor: pointer;
+  color: white;
+}
+
+.unfriend-button {
+  background-color: black;
+  color: white;
+}
+
+.unfriend-button:hover {
+  background-color: white;
+  cursor: pointer;
+  color: black;
 }
 
 .profile-friends {
   margin: 0;
   cursor: pointer;
-  width: 200px;
+  width: 250px;
 }
 
 .profile-friends:hover h1, .profile-friends:hover h2 {
@@ -39,10 +78,14 @@
 
 .profile-friends-count {
   margin: 0;
+  font-size: 40px;
+  font-weight: bold;
 }
 
 .profile-friends-label {
   margin: 0;
+  font-size: 29px;
+  font-weight: normal;
 }
 
 .profile-posts-container {
@@ -99,7 +142,7 @@
   color: grey;
 }
 
-.unfriend-button {
+.friends-unfriend-button {
   position: absolute;
   right: 15px;
   bottom: 15px;
@@ -118,4 +161,8 @@
   display: block;
   margin: 10px;
   font-size: 100px;
+}
+
+.space {
+  height: 50px;
 }

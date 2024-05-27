@@ -8,6 +8,7 @@ const Profile = () => {
   const [profile, setProfile] = useState({});
   const [friends, setFriends] = useState([]);
   const [posts, setPosts] = useState([]);
+  const isLoggedInUserProfile = true;
 
   const getProfile = async () => {
     try {
@@ -35,6 +36,7 @@ const Profile = () => {
   return (
     <div className='profile-page'>
         <div className='profile-information'>
+          {isLoggedInUserProfile ? 
           <Popup trigger={<img src={profile.image} alt="profile pic" className="profile-picture" title="Edit profile" />} 
                  position="right center" contentStyle={{ width: '1000px', padding: '50px' }} modal>
             <div className="edit-profile">
@@ -56,15 +58,19 @@ const Profile = () => {
                 <br /><br />
 
                 <label>Bio</label>
-                <input type="text" placeholder={profile.bio}/>
+                <input type="text" placeholder={profile.bio} className="edit-profile-bio-input" />
               </form>
             </div>  
           </Popup>
+          :
+          <img src={profile.image} alt="profile pic" className="profile-picture-not-owner" />
+          }
 
           <div className="profile-text">
             <h1 className="profile-name">{profile.user_name}</h1>
             <h2 className="profile-username">@{profile.user_username}</h2>
             <p className="profile-bio">{profile.bio}</p>
+            {!isLoggedInUserProfile && <button className="friend-button unfriend-button">Friend</button>}
           </div>
           
           <Popup trigger={<div className="profile-friends">
@@ -80,7 +86,7 @@ const Profile = () => {
                       <img src={profile.image} alt="profile pic" className="friend-picture" />
                       <p><span className="friend-name">{friend.user_name}</span> <span className="friend-username">@{friend.user_username}</span></p>
                     </div>
-                    <button className="unfriend-button">Unfriend</button>
+                    {isLoggedInUserProfile && <button className="friends-unfriend-button">Unfriend</button>}
                   </div>
                 )
               }
@@ -100,6 +106,8 @@ const Profile = () => {
             }
           </div>
         </div>
+
+        <div className="space" />
         
     </div>
   )
