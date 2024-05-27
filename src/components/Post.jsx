@@ -9,8 +9,8 @@ const Post = () => {
   return (
     <div className='post'>
       <div className='post-handle'>
-        <img className='post-avatar' src={defaultAvatar} alt='Avatar'/>
-        <p>Test Handle</p>
+        <a href='http://localhost:3000/' alt='Change to user profile link'><img className='post-avatar' src={defaultAvatar} alt='Avatar'/></a>
+        <p>@testHandle</p>
       </div>
 
       <div className='post-photo'>
