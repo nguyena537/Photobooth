@@ -5,16 +5,18 @@ import heartSVG from '../assets/heart interact.svg';
 import commentSVG from '../assets/comment interact.svg';
 import defaultPhoto from '../assets/default photo.png';
 
-const Post = () => {
+const Post = (props) => {
+  const { username, userImage, postImage } = props;
+
   return (
     <div className='post'>
       <div className='post-handle'>
-        <a href='http://localhost:3000/' alt='Change to user profile link'><img className='post-avatar' src={defaultAvatar} alt='Avatar'/></a>
-        <p>@testHandle</p>
+        <a href='http://localhost:3000/' alt='Change to user profile link'><img className='post-avatar' src={userImage ?? defaultAvatar} alt='Avatar'/></a>
+        <p>@{username}</p>
       </div>
 
       <div className='post-photo'>
-        <img className='post-photo-image' src={defaultPhoto} alt='Pic'/>
+        <img className='post-photo-image' src={postImage} alt='Pic'/>
       </div>
 
       <div className='post-interact'>

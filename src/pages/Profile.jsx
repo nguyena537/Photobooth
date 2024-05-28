@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import logo from '../assets/photobooth logo.png';
 import Popup from 'reactjs-popup';
+import Post from '../components/Post';
 import 'reactjs-popup/dist/index.css';
 import './Profile.css';
 
@@ -99,8 +100,12 @@ const Profile = () => {
         <div className="profile-posts-container">
           <div className='profile-posts'>
             {posts.map((post) => 
-                <Popup trigger={<img src={post.post_image} alt="post" className="profile-post-image" />} position="right center" modal>
-                  <div>Post component</div>
+                <Popup trigger={<img src={post.post_image} alt="post" className="profile-post-image" />} position="right center" contentStyle={{ width: '512px' }} modal>
+                  <Post
+                    username={post.user_name}
+                    postImage={post.post_image}
+                    userImage={post.user_image} 
+                  />
                 </Popup>
               )
             }

@@ -29,16 +29,21 @@ a {
 }
 
 .post-photo {
+    object-fit: cover;
     background-color: black;
-    width: 420px;
+    max-width: 482px;
     height: 420px;
     display: block;
     margin-left: auto;
     margin-right: auto;
+    
 }
 .post-photo-image {
-    width: 420px;
     height: 420px;
+    object-fit: cover;
+    background-color: black;
+    min-width: 420px;
+    max-width: 482px;
 }
 
 .post-interact-heart, .post-interact-comment {

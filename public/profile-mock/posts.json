@@ -6,7 +6,7 @@
     "post_image": "profile-mock/postimage1.jpg",
     "description": "post tes 00.",
     "user_name": "nha",
-    "user_image":null
+    "user_image": "profile-mock/profilePic.jpg"
   },
   {
     "post_id": 11,
@@ -15,7 +15,7 @@
     "post_image": "profile-mock/postimage2.jpg",
     "description": "post tes 00.",
     "user_name": "nha",
-    "user_image":null
+    "user_image": "profile-mock/profilePic.jpg"
   },
   {
     "post_id": 11,
@@ -24,7 +24,7 @@
     "post_image": "profile-mock/postimage3.jpg",
     "description": "post tes 00.",
     "user_name": "nha",
-    "user_image":null
+    "user_image": "profile-mock/profilePic.jpg"
   },
   {
     "post_id": 11,
@@ -33,7 +33,7 @@
     "post_image": "profile-mock/postimage4.jpg",
     "description": "post tes 00.",
     "user_name": "nha",
-    "user_image":null
+    "user_image": "profile-mock/profilePic.jpg"
   },
   {
     "post_id": 11,
@@ -42,7 +42,7 @@
     "post_image": "profile-mock/postimage5.jpg",
     "description": "post tes 00.",
     "user_name": "nha",
-    "user_image":null
+    "user_image": "profile-mock/profilePic.jpg"
   },
   {
     "post_id": 11,
@@ -51,6 +51,6 @@
     "post_image": "profile-mock/postimage6.jpg",
     "description": "post tes 00.",
     "user_name": "nha",
-    "user_image":null
+    "user_image": "profile-mock/profilePic.jpg"
   }
 ]
