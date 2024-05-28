@@ -1,9 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const pool = require('../db'); 
-const authorization = require('../middleware/authorization'); 
 
+const authorization = require('../middleware/authorization'); 
 // like or unlike a post
+
+/*     All or Nothing: Transactions ensure that either all operations within the transaction are executed successfully, or none of them are. If any operation fails, the entire transaction can be rolled back, leaving the database in a consistent state.
+    Example: In the given context, when a user likes a post, we need to insert a record into the likes_photo table and increment the like count in the posts_photo table. Both operations should succeed together. If the increment operation fails after inserting the like, the like count would be incorrect without a transaction. */
 router.post('/', authorization, async (req, res) => {
     try {
         const { post_id } = req.body;

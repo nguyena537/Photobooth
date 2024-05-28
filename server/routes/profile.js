@@ -13,7 +13,7 @@ router.get("/", authorization, async (req, res) => {
     // );
     
     const user = await pool.query(
-      "SELECT user_id, user_name, user_email, role, user_image FROM users_photo WHERE user_id = $1",
+      "SELECT user_id, user_name, user_email, role, user_image, user_username, bio FROM users_photo WHERE user_id = $1",
       [req.user.id]
     );
 
@@ -26,13 +26,41 @@ router.get("/", authorization, async (req, res) => {
 
 
 
+router.put("/bio", authorization, async (req, res) => {
+  try {
+      const userId = req.user.id;
+      const { bio } = req.body;
+
+      // Update the user's bio
+      const updateBioQuery = `
+          UPDATE users_photo
+          SET bio = $1
+          WHERE user_id = $2
+          RETURNING user_id, user_username, user_email, user_image, bio;
+      `;
+      const updateBioResult = await pool.query(updateBioQuery, [bio, userId]);
+
+      // Check if the user exists
+      if (updateBioResult.rows.length === 0) {
+          return res.status(404).json({ error: "User not found" });
+      }
+
+      // Respond with the updated user information
+      res.json(updateBioResult.rows[0]);
+  } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server error");
+  }
+  
+});
+
 router.get("/user/:id", authorization, async (req, res) => {
   try {
       const { id } = req.params;
 
       // Query to get user data by user ID
       const userQuery = `
-          SELECT user_id, user_name, user_email, role, user_image
+          SELECT user_id, user_name, user_email, role, user_image, user_username, bio
           FROM users_photo
           WHERE user_id = $1;
       `;

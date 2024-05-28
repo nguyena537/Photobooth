@@ -10,8 +10,11 @@ router.get("/", authorization, async (req, res) => {
         const userId = req.user.id;
 
         // Query to get posts from friends sorted by created_at
-        const friendsPostsQuery = `
-            SELECT p.*, u.user_name, u.user_image
+        const friendsPostsQuery = 
+        
+        `
+            SELECT p.*, u.user_username, u.user_image, 
+            EXISTS (SELECT 1 FROM likes_photo l WHERE l.post_id = p.post_id AND l.user_id = $1) AS liked
             FROM posts_photo p
             JOIN friends_photo f ON (p.user_id = f.user_0_id OR p.user_id = f.user_1_id)
             JOIN users_photo u ON p.user_id = u.user_id
@@ -29,7 +32,8 @@ router.get("/", authorization, async (req, res) => {
         if (remainingPostsCount > 0) {
             // Query to get random posts excluding the user's own posts and friends' posts
             const randomPostsQuery = `
-                SELECT p.*, u.user_name, u.user_image
+                SELECT p.*, u.user_username, u.user_image, 
+                EXISTS (SELECT 1 FROM likes_photo l WHERE l.post_id = p.post_id AND l.user_id = $1) AS liked
                 FROM posts_photo p
                 LEFT JOIN friends_photo f ON (p.user_id = f.user_0_id OR p.user_id = f.user_1_id) AND (f.user_0_id = $1 OR f.user_1_id = $1)
                 JOIN users_photo u ON p.user_id = u.user_id
@@ -51,21 +55,24 @@ router.get("/", authorization, async (req, res) => {
 });
 
 
+
 // Endpoint to get posts by user ID
 router.get("/user/:id", authorization, async (req, res) => {
     try {
         const { id } = req.params;
-        
+        const userId = req.user.id;
+
         // Query to get posts by user ID
         const userPostsQuery = `
-            SELECT p.*, u.user_name, u.user_image
+            SELECT p.*, u.user_username, u.user_image, 
+            EXISTS (SELECT 1 FROM likes_photo l WHERE l.post_id = p.post_id AND l.user_id = $1) AS liked
             FROM posts_photo p
             JOIN users_photo u ON p.user_id = u.user_id
-            WHERE p.user_id = $1
+            WHERE p.user_id = $2
             ORDER BY p.created_at DESC;
         `;
         
-        const userPostsResult = await pool.query(userPostsQuery, [id]);
+        const userPostsResult = await pool.query(userPostsQuery, [userId, id]);
 
         // Respond with the user's posts
         res.json(userPostsResult.rows);
@@ -74,6 +81,7 @@ router.get("/user/:id", authorization, async (req, res) => {
         res.status(500).send("Server error");
     }
 });
+
 
 
 router.post("/", authorization, async (req, res) => {
@@ -144,19 +152,22 @@ try {
 
 
 
+
 router.get("/:id", authorization, async (req, res) => {
     try {
         const { id } = req.params;
+        const userId = req.user.id;
 
         // Query to get post details along with user name and image
         const postQuery = `
-            SELECT p.*, u.user_name, u.user_image
+            SELECT p.*, u.user_username, u.user_image, 
+            EXISTS (SELECT 1 FROM likes_photo l WHERE l.post_id = p.post_id AND l.user_id = $1) AS liked
             FROM posts_photo p
             JOIN users_photo u ON p.user_id = u.user_id
-            WHERE p.post_id = $1;
+            WHERE p.post_id = $2;
         `;
         
-        const postResult = await pool.query(postQuery, [id]);
+        const postResult = await pool.query(postQuery, [userId, id]);
 
         // Check if the post exists
         if (postResult.rows.length === 0) {
