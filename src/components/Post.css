@@ -6,6 +6,7 @@
     flex-direction: column;
     margin: 10px;
     padding: 5px;
+    gap: 5px;
 }
 
 .post-handle, .post-interact {
