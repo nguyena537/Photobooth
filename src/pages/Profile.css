@@ -40,7 +40,7 @@
   margin-top: 20px;
 }
 
-.friend-button {
+.friend-button, .edit-profile-button {
   width: 300px;
   height: 50px;
   background-color: white;
@@ -50,7 +50,7 @@
   margin-top: 5px;
 }
 
-.friend-button:hover {
+.friend-button:hover, .edit-profile-button:hover {
   background-color: black;
   cursor: pointer;
   color: white;
@@ -186,4 +186,26 @@
   top: 50%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
+}
+
+.submit-button {
+  width: 125px;
+  height: 25px;
+  background-color: white;
+  border-radius: 30px;
+  font-weight: 500;
+  font-size: 15px;
+  margin-top: 5px;
+}
+
+.submit-button:hover {
+  background-color: black;
+  cursor: pointer;
+  color: white;
+}
+
+.preview-post-img {
+  object-fit: cover;
+  width: 150px;
+  height: 150px;
 }

@@ -16,6 +16,7 @@ const Profile = () => {
   const [isFriend, setIsFriend] = useState(true);
   const [pageLoading, setPageLoading] = useState(true);
   const [tempBio, setTempBio] = useState("");
+  const [previewPostImg, setPreviewPostImg] = useState(null);
   const { userId } = useParams();
   const isLoggedInUserProfile = (userId == null || userId == sessionStorage.getItem('user_id'));
   
@@ -70,11 +71,11 @@ const Profile = () => {
     event.preventDefault();
     setLoading(true);
 
-    if (event.target.img.files.length > 0) {
+    if (event.target.profilePic.files.length > 0) {
       let url = "https://photo-server-deplo.onrender.com/upload";
 
       let formData = new FormData();
-      formData.append('file', event.target.img.files[0]);
+      formData.append('file', event.target.profilePic.files[0]);
       const uploadRes = await fetch(url, {
         method: 'POST',
         headers: {
@@ -110,7 +111,7 @@ const Profile = () => {
 
     let formData = new FormData();
     formData.append('description', event.target.caption.value);
-    formData.append('file', event.target.img.files[0]);
+    formData.append('file', event.target.postImg.files[0]);
     const postRes = await fetch(url, {
       method: 'POST',
       headers: {
@@ -188,6 +189,17 @@ const Profile = () => {
     setLoading(false);
   }
 
+  const postImgChange = (event) => {
+    console.log(event.target.files);
+    if (event.target.files != null) {
+      setPreviewPostImg(URL.createObjectURL(event.target.files[0]));
+    }
+    else {
+      setPreviewPostImg(null);
+    }
+    
+  }
+
   useEffect(() => {
     if (sessionStorage.getItem('token') == null) {
       window.location.href = "/";
@@ -208,7 +220,7 @@ const Profile = () => {
               <h1>Edit Profile</h1>
               <form className="edit-profile-form" onSubmit={handleEditProfileSubmit}>
                 <label>Profile Picture</label>              
-                <input type="file" id="img" name="img" accept="image/*" />
+                <input type="file" id="profilePic" name="profilePic" accept="image/*" />
 {/* 
                 <br /><br />
 
@@ -227,7 +239,7 @@ const Profile = () => {
 
                 <br /><br />
 
-                <input type="submit" name="submit" value={loading ? "Loading..." : "Submit"} disabled={loading} />
+                <input type="submit" name="submit" value={loading ? "Loading..." : "Submit"} disabled={loading} className="submit-button" />
               </form>
             </div>  
           </Popup>
@@ -240,6 +252,26 @@ const Profile = () => {
             <h2 className="profile-username">@{profile.user_username}</h2>
             <p className="profile-bio">{profile.bio}</p>
             {!isLoggedInUserProfile && (!isFriend ? <button className="friend-button" onClick={friendClicked} disabled={loading}>{loading ? "Loading..." : "Friend"}</button> : <button className="friend-button unfriend-button" onClick={unfriendClicked} disabled={loading}>{loading ? "Loading..." : "Unfriend"}</button>)}
+            {isLoggedInUserProfile && 
+            <Popup trigger={<button className="edit-profile-button">Edit Profile</button>} 
+                 position="right center" contentStyle={{ width: '1000px', padding: '50px' }} modal>
+              <div className="edit-profile">
+                <h1>Edit Profile</h1>
+                <form className="edit-profile-form" onSubmit={handleEditProfileSubmit}>
+                  <label>Profile Picture</label>              
+                  <input type="file" id="profilePic" name="profilePic" accept="image/*" />
+
+                  <br /><br />
+
+                  <label>Bio</label>
+                  <input type="text" name="bio" onChange={(event) => setTempBio(event.target.value)} value={tempBio} className="edit-profile-bio-input" />
+
+                  <br /><br />
+
+                  <input type="submit" name="submit" value={loading ? "Loading..." : "Submit"} disabled={loading} className="submit-button" />
+                </form>
+              </div>  
+            </Popup>}
           </div>
           
           <Popup trigger={<div className="profile-friends">
@@ -282,13 +314,13 @@ const Profile = () => {
           </div>
         </div>
 
-        {isLoggedInUserProfile && <Popup trigger={<button className="add-post-button">+</button>} position="right center" contentStyle={{ width: '512px', padding: '50px' }} modal>
+        {isLoggedInUserProfile && <Popup trigger={<button className="add-post-button">+</button>} position="right center" contentStyle={{ width: '512px', padding: '50px' }} onClose={() => setPreviewPostImg(null)} modal>
           <div className="add-post">
             <h1>Add Post</h1>
-            <form className="edit-profile-form" onSubmit={handleAddPostSubmit}>
+            <form className="add-post-form" onSubmit={handleAddPostSubmit}>
               <label>Image</label>              
-              <input type="file" id="img" name="img" accept="image/*" />
-
+              <input type="file" id="postImg" name="postImg" accept="image/*" onChange={postImgChange} />
+              {previewPostImg != null && <div><br /><img src={previewPostImg} className="preview-post-img" /></div>}
               <br /><br />
 
               <label>Caption</label>
@@ -296,7 +328,7 @@ const Profile = () => {
 
               <br /><br />
 
-              <input type="submit" name="submit" value={loading ? "Loading..." : "Submit"} disabled={loading} />
+              <input type="submit" name="submit" value={loading ? "Loading..." : "Submit"} disabled={loading} className="submit-button" />
             </form>
           </div>
         </Popup>
