@@ -13,7 +13,7 @@ function App() {
           <Route index element={<Login />} />
           <Route path="signup" element={<Signup />} />
           <Route path="profile" element={<Profile />} />
-          <Route path="postings" element={<Postings />} />
+          <Route path="posts" element={<Postings />} />
         </Routes>
       </BrowserRouter>
     </div>

@@ -2,6 +2,7 @@
   width: 250px;
   height: 250px;
   border-radius: 50%;
+  object-fit: cover;
 }
 
 .profile-picture:hover {
@@ -161,6 +162,16 @@
   display: block;
   margin: 10px;
   font-size: 100px;
+}
+
+.add-post-button {
+  width: 100px;
+  height: 100px;
+  position: fixed;
+  right: 50px;
+  bottom: 50px;
+  border-radius: 50%;
+  cursor: pointer;
 }
 
 .space {

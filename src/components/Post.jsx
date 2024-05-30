@@ -6,7 +6,7 @@ import commentSVG from '../assets/comment interact.svg';
 import defaultPhoto from '../assets/default photo.png';
 
 const Post = (props) => {
-  const { username, userImage, postImage } = props;
+  const { username, userImage, postImage, caption } = props;
 
   return (
     <div className='post'>
@@ -25,7 +25,7 @@ const Post = (props) => {
       </div>
 
       <div className='post-text'>
-        <p>Test Caption</p>
+        <p>{caption ?? "Test Caption"}</p>
         <p>Test Comment</p>
       </div>
     </div>
