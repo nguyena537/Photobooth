@@ -131,6 +131,8 @@
 .friend-information {
   display: flex;
   gap: 20px;
+  max-width: fit-content;
+  cursor: pointer;
 }
 
 .friend-name {
@@ -176,4 +178,12 @@
 
 .space {
   height: 50px;
+}
+
+.page-loading {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
