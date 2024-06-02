@@ -4,8 +4,18 @@ import logo from '../assets/photobooth logo.png'
 
 const Login = () => {
     const [loginInfo, setLoginInfo] = useState({email: "", password: ""});
+
     const [loginIncorrect, setLoginIncorrect] = useState(false);
     const [loading, setLoading] = useState(false);
+    
+    async function auth(){
+        const response = await fetch('https://photo-server-deplo.onrender.com/request', { method:'post' });
+        const data = await response.json();
+
+        console.log(data);
+        window.location.href = data.url;
+        
+    }
 
     const handleFormChange = (event) => {
         setLoginIncorrect(false);
@@ -35,7 +45,7 @@ const Login = () => {
                 body: body
             });
 
-            if (response.status == 200) {
+            if (response.status === 200) {
                 const data = await response.json();
                 console.log(data);
                 sessionStorage.setItem('token', data.token);
@@ -81,7 +91,7 @@ const Login = () => {
             <div className="main-container">
                 <div className="top-container">
                     <h2 className='title'>Log in to Photobooth</h2>
-                    <button className="google-button">Continue with Google</button>
+                    <button className="google-button" onClick={auth}>Continue with Google</button>
                 </div>
                 <p className='line-break'><span>OR</span></p>
                 <div className="form-container">
@@ -111,6 +121,7 @@ const Login = () => {
             </div>
         </div>
     )
+
 }
 
 export default Login
