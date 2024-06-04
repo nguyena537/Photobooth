@@ -102,13 +102,9 @@ const Profile = () => {
             {posts.map((post) => 
                 <Popup trigger={<img src={post.post_image} alt="post" className="profile-post-image" />} position="right center" contentStyle={{ width: '512px' }} modal>
                   <Post
-                    post_id={post.post_id}
                     username={post.user_name}
                     postImage={post.post_image}
-                    userImage={post.user_image}
-                    likes={post.likes} 
-                    caption={post.caption}
-                    comments={post.comments}
+                    userImage={post.user_image} 
                   />
                 </Popup>
               )
