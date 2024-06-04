@@ -9,10 +9,12 @@ const Login = () => {
     const [loading, setLoading] = useState(false);
     
     async function auth(){
+        setLoading(true);
         const response = await fetch('https://photo-server-deplo.onrender.com/request', { method:'post' });
         const data = await response.json();
 
         console.log(data);
+        setLoading(false);
         window.location.href = data.url;
         
     }
@@ -47,8 +49,6 @@ const Login = () => {
 
             if (response.status === 200) {
                 const data = await response.json();
-                console.log(data);
-                sessionStorage.setItem('token', data.token);
 
                 const profileRes = await fetch("https://photo-server-deplo.onrender.com/profile", {
                     method: 'GET',
@@ -58,9 +58,7 @@ const Login = () => {
                     },
                 });
                 const profileData = await profileRes.json();
-                console.log(profileData.user_id);
-                sessionStorage.setItem('user_id', profileData.user_id);
-                window.location.href = "profile";
+                window.location.href = `/redirect?token=${data.token}&userEmail=${profileData.user_email}&userId=${profileData.user_id}`
             }
             else
             {
@@ -91,7 +89,7 @@ const Login = () => {
             <div className="main-container">
                 <div className="top-container">
                     <h2 className='title'>Log in to Photobooth</h2>
-                    <button className="google-button" onClick={auth}>Continue with Google</button>
+                    <button className="google-button" onClick={auth} disabled={loading}>Continue with Google</button>
                 </div>
                 <p className='line-break'><span>OR</span></p>
                 <div className="form-container">
