@@ -6,12 +6,12 @@ import commentSVG from '../assets/comment interact.svg';
 import defaultPhoto from '../assets/default photo.png';
 
 const Post = (props) => {
-  const { username, userImage, postImage, caption } = props;
+  const { username, userImage, postImage } = props;
 
   return (
     <div className='post'>
       <div className='post-handle'>
-        <a href='/' alt='Change to user profile link'><img className='post-avatar' src={userImage ?? defaultAvatar} alt='Avatar'/></a>
+        <a href='http://localhost:3000/' alt='Change to user profile link'><img className='post-avatar' src={userImage ?? defaultAvatar} alt='Avatar'/></a>
         <p>@{username}</p>
       </div>
 
@@ -25,7 +25,7 @@ const Post = (props) => {
       </div>
 
       <div className='post-text'>
-        <p>{caption ?? "Test Caption"}</p>
+        <p>Test Caption</p>
         <p>Test Comment</p>
       </div>
     </div>
