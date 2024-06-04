@@ -49,6 +49,7 @@ a {
 .post-interact-heart, .post-interact-comment {
     width: 40px;
     height: 40px;
+    
 }
 .post-interact-heart:active, .post-interact-comment:active {
     width: 36px;
@@ -60,8 +61,4 @@ a {
     background-color: transparent;
     display: flex;
     flex-direction: column;
-}
-
-p {
-    text-align: center;
 }
