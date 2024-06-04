@@ -11,10 +11,9 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route index element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/profile/:userId" element={<Profile />} />
-          <Route path="/posts" element={<Postings />} />
+          <Route path="signup" element={<Signup />} />
+          <Route path="profile" element={<Profile />} />
+          <Route path="postings" element={<Postings />} />
         </Routes>
       </BrowserRouter>
     </div>
