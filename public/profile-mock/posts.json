@@ -2,55 +2,67 @@
   {
     "post_id": 11,
     "user_id": "1eb96771-59cb-4854-8fd0-fb6cc90fbddb",
-    "likes": 0,
+    "likes": 1,
     "post_image": "profile-mock/postimage1.jpg",
     "description": "post tes 00.",
     "user_name": "nha",
-    "user_image": "profile-mock/profilePic.jpg"
+    "user_image": "profile-mock/profilePic.jpg",
+    "comments": ["Blah blah", "Wowee"],
+    "caption": "Here it is." 
   },
   {
-    "post_id": 11,
+    "post_id": 12,
     "user_id": "1eb96771-59cb-4854-8fd0-fb6cc90fbddb",
-    "likes": 0,
+    "likes": 10,
     "post_image": "profile-mock/postimage2.jpg",
     "description": "post tes 00.",
     "user_name": "nha",
-    "user_image": "profile-mock/profilePic.jpg"
+    "user_image": "profile-mock/profilePic.jpg",
+    "comments": ["Blah blah", "Wowee"],
+    "caption": "Here it is." 
   },
   {
-    "post_id": 11,
+    "post_id": 13,
     "user_id": "1eb96771-59cb-4854-8fd0-fb6cc90fbddb",
-    "likes": 0,
+    "likes": 105,
     "post_image": "profile-mock/postimage3.jpg",
     "description": "post tes 00.",
     "user_name": "nha",
-    "user_image": "profile-mock/profilePic.jpg"
+    "user_image": "profile-mock/profilePic.jpg",
+    "comments": ["Blah blah", "Wowee"],
+    "caption": "Here it is." 
   },
   {
-    "post_id": 11,
+    "post_id": 14,
     "user_id": "1eb96771-59cb-4854-8fd0-fb6cc90fbddb",
-    "likes": 0,
+    "likes": 50,
     "post_image": "profile-mock/postimage4.jpg",
     "description": "post tes 00.",
     "user_name": "nha",
-    "user_image": "profile-mock/profilePic.jpg"
+    "user_image": "profile-mock/profilePic.jpg",
+    "comments": ["Blah blah", "Wowee"],
+    "caption": "Here it is." 
   },
   {
-    "post_id": 11,
+    "post_id": 15,
     "user_id": "1eb96771-59cb-4854-8fd0-fb6cc90fbddb",
-    "likes": 0,
+    "likes": 90,
     "post_image": "profile-mock/postimage5.jpg",
     "description": "post tes 00.",
     "user_name": "nha",
-    "user_image": "profile-mock/profilePic.jpg"
+    "user_image": "profile-mock/profilePic.jpg",
+    "comments": ["Blah blah", "Wowee"],
+    "caption": "Here it is." 
   },
   {
-    "post_id": 11,
+    "post_id": 16,
     "user_id": "1eb96771-59cb-4854-8fd0-fb6cc90fbddb",
-    "likes": 0,
+    "likes": 110,
     "post_image": "profile-mock/postimage6.jpg",
     "description": "post tes 00.",
     "user_name": "nha",
-    "user_image": "profile-mock/profilePic.jpg"
+    "user_image": "profile-mock/profilePic.jpg",
+    "comments": ["Blah blah", "Wowee"],
+    "caption": "Here it is." 
   }
 ]
