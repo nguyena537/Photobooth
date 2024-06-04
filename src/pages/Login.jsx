@@ -5,7 +5,6 @@ import logo from '../assets/photobooth logo.png'
 const Login = () => {
     const [loginInfo, setLoginInfo] = useState({email: "", password: ""});
     const [loginIncorrect, setLoginIncorrect] = useState(false);
-    const [loading, setLoading] = useState(false);
 
     const handleFormChange = (event) => {
         setLoginIncorrect(false);
@@ -21,7 +20,6 @@ const Login = () => {
 
     const sendLogin = async () => {
         try {
-            setLoading(true);
             setLoginIncorrect(false);
             console.log(JSON.stringify(loginInfo));
             let body = JSON.stringify(loginInfo);
@@ -48,8 +46,8 @@ const Login = () => {
                     },
                 });
                 const profileData = await profileRes.json();
-                console.log(profileData.user_id);
-                sessionStorage.setItem('user_id', profileData.user_id);
+                console.log(profileData[0].user_id);
+                sessionStorage.setItem('user_id', profileData[0].user_id);
                 window.location.href = "profile";
             }
             else
@@ -57,10 +55,9 @@ const Login = () => {
                 console.log("Login incorrect.");
                 setLoginIncorrect(true);
             }
-            setLoading(false);
+            
         }
         catch (err) {
-            setLoading(false);
             console.log("Exception occured.");
         }
         
@@ -96,7 +93,7 @@ const Login = () => {
                     </div>
 
                     <div className="submit">
-                        <button type='submit' id='login-button' onClick={sendLogin} disabled={loading}>{loading ? "Loading..." : "Log in"}</button>
+                        <button type='submit' id='login-button' onClick={sendLogin}>Log in</button>
                     </div>
 
                     {loginIncorrect && <p>Username or password is incorrect.</p>}
