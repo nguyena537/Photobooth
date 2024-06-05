@@ -7,10 +7,12 @@ import defaultPhoto from '../assets/default photo.png';
 
 import CommentList from './CommentList';
 const Post = (props) => {
+
   
   const { username, userImage, postImage, caption, postId } = props;
   const [comments, setComments] = useState([]);
   const [isReplying, setIsReplying] = useState(false);
+
 
   const [replyText, setReplyText] = useState('');
   const url = 'https://photo-server-deplo.onrender.com';
@@ -131,7 +133,7 @@ const Post = (props) => {
   return (
     <div className='post'>
       <div className='post-handle'>
-        <a href='/' alt='Change to user profile link'><img className='post-avatar' src={userImage ?? defaultAvatar} alt='Avatar'/></a>
+        <a href='http://localhost:3000/' alt='Change to user profile link'><img className='post-avatar' src={userImage ?? defaultAvatar} alt='Avatar'/></a>
         <p>@{username}</p>
       </div>
 
@@ -150,6 +152,7 @@ const Post = (props) => {
         </div>
       )}
       <div className='post-text'>
+
       <CommentList
         postId={postId}
         comments={comments}
@@ -158,6 +161,8 @@ const Post = (props) => {
         onDeleteComment={deleteComment}
         onFetchComments={fetchComments}
       />
+
+       
       </div>
 
       
