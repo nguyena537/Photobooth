@@ -9,7 +9,8 @@ const Postings = () => {
   useEffect(()=>{
     const fetchPosts = async () => {
       try {
-        const response = await fetch('/post', {
+        let url = "https://photo-server-deplo.onrender.com";
+        const response = await fetch(`${url}/post`, {
           headers: {
             Authorization: sessionStorage.getItem('token')
           }
@@ -26,19 +27,22 @@ const Postings = () => {
   }, []);
 
   return (
-    <div className='postings-row'>
-      {posts.map(post => (
-        <Post 
-          key={post.post_id} 
-          post_id={post.post_id} 
-          username={post.user_username}
-          userImage={post.user_image}
-          postImage={post.post_image}
-          likes={post.likes}
-          caption={post.description}
-          comments={post.comments}  
-        />
-      ))}
+    <div className='postings-container'>
+      <div className='postings-column'>
+        {posts.map(post => (
+          <Post 
+            key={post.post_id} 
+            post_id={post.post_id} 
+            user_id={post.user_id}
+            username={post.user_username}
+            userImage={post.user_image}
+            postImage={post.post_image}
+            likes={post.likes}
+            caption={post.description}
+            comments={post.comments}  
+          />
+        ))}
+      </div>
     </div>
   )
 }

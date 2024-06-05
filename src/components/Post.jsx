@@ -6,13 +6,14 @@ import { FaRegComment } from "react-icons/fa";
 import defaultPhoto from '../assets/default photo.png';
 
 const Post = (props) => {
-  const { post_id, username, userImage, postImage, likes, caption, comments } = props;
+  const { key, post_id, user_id, username, userImage, postImage, likes, caption, comments } = props;
   const [likeNum, setLikes] = useState(likes);
   const [clicked, setClicked] = useState(false);
 
   const handleLikes = async () => {
     try {
-      const response = await fetch('/like', {
+      let url = "https://photo-server-deplo.onrender.com";
+      const response = await fetch(`${url}/like`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -38,7 +39,7 @@ const Post = (props) => {
   return (
     <div className='post'>
       <div className='post-handle'>
-        <a href={`http://localhost:3000/profile/${username}`}><img className='post-avatar' src={userImage ?? defaultAvatar} alt='Avatar'/></a>
+        <a href={`http://localhost:3000/profile/${user_id}`}><img className='post-avatar' src={userImage ?? defaultAvatar} alt='Avatar'/></a>
         <p>@{username}</p>
       </div>
 

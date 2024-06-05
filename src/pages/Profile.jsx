@@ -305,7 +305,7 @@ const Profile = () => {
                     <Popup trigger={<img src={post.post_image} alt="post" className="profile-post-image" />} position="right center" contentStyle={{ width: '512px' }} modal>
                       <Post
                         post_id={post.post_id}
-                        username={post.user_userusername}
+                        username={post.user_username}
                         postImage={post.post_image}
                         userImage={post.user_image}
                         caption={post.description}

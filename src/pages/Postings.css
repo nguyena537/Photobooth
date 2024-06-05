@@ -1,4 +1,9 @@
-.postings-row {
+.postings-container {
     display: flex;
-    flex-direction: row;
+    justify-content: center;
+}
+
+.postings-column {
+    display: flex;
+    flex-direction: column;
 }
