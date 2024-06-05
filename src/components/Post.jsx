@@ -9,7 +9,7 @@ import CommentList from './CommentList';
 const Post = (props) => {
 
   
-  const { username, userImage, postImage, caption, postId } = props;
+  const { username, userImage, postImage, caption, postId, likes } = props;
   const [comments, setComments] = useState([]);
   const [isReplying, setIsReplying] = useState(false);
 
