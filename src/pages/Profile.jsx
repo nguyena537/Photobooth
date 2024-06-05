@@ -301,9 +301,11 @@ const Profile = () => {
           <div className='profile-posts'>
             {posts.length > 0 ? 
               posts.map((post) => 
-                  <Popup trigger={<img src={post.post_image} alt="post" className="profile-post-image" />} position="right center" contentStyle={{ width: '512px' }} modal>
+                  <Popup trigger={<img src={post.post_image} alt="post" className="profile-post-image" />} position="right center" contentStyle={{ width: '512px', overflow: 'scroll'}} modal>
                     <Post
+
                       post_id={post.post_id}
+
                       username={post.user_username}
                       postImage={post.post_image}
                       userImage={post.user_image}
