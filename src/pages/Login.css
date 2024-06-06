@@ -132,3 +132,26 @@ body {
     font-size: small;
     color: #71797E;
  }
+
+ .password-row {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+}
+
+.password-toggle-button {
+   background: none;
+   border: none;
+   color: gray;
+   cursor: pointer;
+   font-size: small;
+   margin-left: 10px;
+   align-items: center;
+   display: flex;
+}
+
+.hide-icon {
+   width: 16px;
+   height: 16px;
+   padding-right: 5px;
+}
