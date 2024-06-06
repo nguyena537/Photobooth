@@ -12,6 +12,8 @@ const Comment = ({ postId, comment }) => {
   const [childComments, setChildComments] = useState([]);
     const baseUrl = 'https://photo-server-deplo.onrender.com';
 
+    const [author, setAuthor] = useState(true);
+
   const fetchComments = async (postId, parent_id) => {
     
     
@@ -97,8 +99,14 @@ const Comment = ({ postId, comment }) => {
         }
       });
       if (response.ok) {
-        const updatedComments = childComments.filter(comment => comment.comment_id !== commentId);
-        setChildComments(updatedComments);
+        if(comment.comment_id===commentId){
+          setUpdatedComment("Comment is deleted")
+          setAuthor(false)
+        }
+        else{
+          const updatedComments = childComments.filter(comment => comment.comment_id !== commentId);
+          setChildComments(updatedComments);
+        }
       } else {
         console.error('Failed to delete comment:', response.statusText);
       }
@@ -143,7 +151,7 @@ const Comment = ({ postId, comment }) => {
         <>
           <p className='comment-text'>{updatedComment?updatedComment:comment.comment}</p>
           <div className='comment-btns'>
-            { (comment.user_id === isLoggedInUserProfile)&&
+            { (comment.user_id === isLoggedInUserProfile && author)&&
             <>
                 <button className='comment-reply-btn' onClick={handleEdit}>Edit</button>
                 <button className='comment-delete-btn' onClick={handleDelete}>Delete</button>
