@@ -8,7 +8,7 @@ const router = express.Router();
 // Get comments for a post
 router.get('/:post_id', authorization, async (req, res) => {
     const { post_id } = req.params;
-    const { parent_id } = req.query;
+    const { parent_id } = req.body;
 
     try {
 
