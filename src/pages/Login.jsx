@@ -1,12 +1,19 @@
 import React, {useState, useEffect} from 'react'
 import './Login.css';
 import logo from '../assets/photobooth logo.png'
+import GoogleButton from 'react-google-button';
+import { useNavigate } from 'react-router-dom';
+import hideIcon from '../assets/hide-icon.png'
 
 const Login = () => {
     const [loginInfo, setLoginInfo] = useState({email: "", password: ""});
 
     const [loginIncorrect, setLoginIncorrect] = useState(false);
     const [loading, setLoading] = useState(false);
+
+    const navigatePages = useNavigate();
+
+    const [passwordVisibility, setPasswordVisibility] = useState(false);
     
     async function auth(){
         setLoading(true);
@@ -89,7 +96,7 @@ const Login = () => {
             <div className="main-container">
                 <div className="top-container">
                     <h2 className='title'>Log in to Photobooth</h2>
-                    <button className="google-button" onClick={auth} disabled={loading}>Continue with Google</button>
+                    <GoogleButton className="google-button" onClick={auth} disabled={loading}/>
                 </div>
                 <p className='line-break'><span>OR</span></p>
                 <div className="form-container">
@@ -99,9 +106,28 @@ const Login = () => {
                     </div>
 
                     <div className="forms" id='bottom-form'>
-                        <label htmlFor="password" className='box-text'>Password</label> <br />
-                        <input type="password" name="password" id="password" className='form-boxes' onChange={handleFormChange} required/>
+                        <div className="password-row">
+                            <label htmlFor="password" className='box-text'>Password</label>
+                            <button
+                                type="button"
+                                onClick={() => setPasswordVisibility(!passwordVisibility)}
+                                className="password-toggle-button"
+                            >
+                                {passwordVisibility && <img src={hideIcon} alt="Hide Icon" className="hide-icon" />} {/* Display hide icon when password is visible */}
+                                {passwordVisibility ? "Hide" : "Show"}
+                            </button>
+                        </div>
+                        <input
+                            type={passwordVisibility ? "text" : "password"}
+                            name="password"
+                            id="password"
+                            className='form-boxes'
+                            onChange={handleFormChange}
+                            required
+                        />
                     </div>
+
+
 
                     <div className="submit">
                         <button type='submit' id='login-button' onClick={sendLogin} disabled={loading}>{loading ? "Loading..." : "Log in"}</button>
@@ -114,7 +140,7 @@ const Login = () => {
 
                 <div className="bottom-container">
                     <p className='no-account'>Don't have an account?</p>
-                    <button id="signUp-button">Sign Up</button>
+                    <button id="signUp-button" onClick={() => navigatePages('/signup')}>Sign Up</button>
                 </div>
             </div>
         </div>

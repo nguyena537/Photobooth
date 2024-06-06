@@ -111,4 +111,15 @@ body {
 
  .bottom-container {
    padding-top: 35px;
+   align-items: center;
  }
+
+ .login-redirect {
+   text-decoration: underline;
+ }
+
+ .login-redirect:hover {
+   cursor: pointer;
+ }
+
+ 
