@@ -17,6 +17,7 @@ const Postings = () => {
         });
         const data = await response.json();
         setPosts(data);
+        console.log(data);
       }
       catch (error) {
         console.error("Error fetching posts:", error);
@@ -31,15 +32,15 @@ const Postings = () => {
       <div className='postings-column'>
         {posts.map(post => (
           <Post 
-            key={post.post_id} 
-            post_id={post.post_id} 
+            //key={post.post_id} 
+            postId={post.post_id} 
             user_id={post.user_id}
             username={post.user_username}
             userImage={post.user_image}
             postImage={post.post_image}
             likes={post.likes}
             caption={post.description}
-            comments={post.comments}  
+            //comments={post.comments}  
           />
         ))}
       </div>

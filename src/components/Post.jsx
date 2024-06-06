@@ -13,40 +13,42 @@ const Post = (props) => {
   const [likeNum, setLikes] = useState(likes);
   const [clicked, setClicked] = useState(false);
 
-  const handleLikes = async () => {
-    try {
-      let url = "https://photo-server-deplo.onrender.com";
-      const response = await fetch(`${url}/like`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: sessionStorage.getItem('token')
-        },
-        body: JSON.stringify({postId})
-      });
-
-      if(!response.ok){
-        throw new Error('Failed to update like state');
-      }
-
-      const result = await response.json();
-
-      setClicked(!clicked);
-      setLikes(result.post.likes);
-    }
-    catch (error){
-      console.error('Error updating likes: ', error);
-    }
-  };
-
-
-
   const [comments, setComments] = useState([]);
   const [isReplying, setIsReplying] = useState(false);
 
 
   const [replyText, setReplyText] = useState('');
   const url = 'https://photo-server-deplo.onrender.com';
+
+  const handleLikes = async () => {
+    try {
+      const response = await fetch(`${url}/like`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: sessionStorage.getItem('token')
+        },
+        body: JSON.stringify({ post_id: postId })
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to update like state');
+      }
+
+      const result = await response.json();
+      console.log('API response:', result); // Add debugging statement
+
+      if (result && result.post && typeof result.post.likes !== 'undefined') {
+        setClicked(!clicked);
+        setLikes(result.post.likes);
+      } else {
+        throw new Error('Invalid response structure');
+      }
+    } catch (error) {
+      console.error('Error updating likes: ', error);
+    }
+  };
+
 
   useEffect(() => {
     fetchComments(postId, null);
