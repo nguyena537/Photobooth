@@ -1,21 +1,54 @@
 import React, { useState, useEffect }  from 'react'
 import './Post.css';
 import defaultAvatar from '../assets/default avatar.png';
-import heartSVG from '../assets/heart interact.svg';
-import commentSVG from '../assets/comment interact.svg';
+import { FcLike } from "react-icons/fc";
+import { FaRegComment } from "react-icons/fa";
 import defaultPhoto from '../assets/default photo.png';
 
 import CommentList from './CommentList';
 const Post = (props) => {
 
   
-  const { username, userImage, postImage, caption, postId, likes } = props;
+  const { postId, user_id, username, userImage, postImage, likes, caption } = props;
+  const [likeNum, setLikes] = useState(likes);
+  const [clicked, setClicked] = useState(false);
+
   const [comments, setComments] = useState([]);
   const [isReplying, setIsReplying] = useState(false);
 
 
   const [replyText, setReplyText] = useState('');
   const url = 'https://photo-server-deplo.onrender.com';
+
+  const handleLikes = async () => {
+    try {
+      const response = await fetch(`${url}/like`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: sessionStorage.getItem('token')
+        },
+        body: JSON.stringify({ post_id: postId })
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to update like state');
+      }
+
+      const result = await response.json();
+      console.log('API response:', result); // Add debugging statement
+
+      if (result && result.post && typeof result.post.likes !== 'undefined') {
+        setClicked(!clicked);
+        setLikes(result.post.likes);
+      } else {
+        throw new Error('Invalid response structure');
+      }
+    } catch (error) {
+      console.error('Error updating likes: ', error);
+    }
+  };
+
 
   useEffect(() => {
     fetchComments(postId, null);
@@ -133,17 +166,17 @@ const Post = (props) => {
   return (
     <div className='post'>
       <div className='post-handle'>
-        <a href='http://localhost:3000/' alt='Change to user profile link'><img className='post-avatar' src={userImage ?? defaultAvatar} alt='Avatar'/></a>
+        <a href={`http://localhost:3000/profile/${user_id}`}><img className='post-avatar' src={userImage ?? defaultAvatar} alt='Avatar'/></a>
         <p>@{username}</p>
       </div>
 
       <div className='post-photo'>
-        <img className='post-photo-image' src={postImage} alt='Pic'/>
+        <img className='post-photo-image' src={postImage ?? defaultPhoto} alt='Pic'/>
       </div>
 
       <div className='post-interact'>
-        <img className='post-interact-heart' src={heartSVG} alt='Heart Interact'/>
-               <img className='post-interact-comment' src={commentSVG} alt='Comment Interact' onClick={toggleReplyMode}/>
+        <FcLike className={`post-interact-heart ${clicked ? 'clicked' : ''}`} size={40} onClick={handleLikes}/>
+        <FaRegComment className='post-interact-comment' size={40} onClick={toggleReplyMode}/>
       </div>
       {isReplying && (
         <div className='reply-field'>
@@ -152,17 +185,16 @@ const Post = (props) => {
         </div>
       )}
       <div className='post-text'>
-
-      <CommentList
-        postId={postId}
-        comments={comments}
-        onAddComment={(comment, parentId) => addComment(postId, comment, parentId)}
-        onUpdateComment={updateComment}
-        onDeleteComment={deleteComment}
-        onFetchComments={fetchComments}
-      />
-
-       
+        <p>{likeNum} likes</p>
+        <p>{caption}</p>
+        <CommentList
+          postId={postId}
+          comments={comments}
+          onAddComment={(comment, parentId) => addComment(postId, comment, parentId)}
+          onUpdateComment={updateComment}
+          onDeleteComment={deleteComment}
+          onFetchComments={fetchComments}
+        />
       </div>
 
       
