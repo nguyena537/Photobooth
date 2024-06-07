@@ -130,6 +130,7 @@ const Comment = ({ postId, comment }) => {
   };
 
   const handleDelete = async () => {
+    setIsEditing(false);
     await deleteComment(comment.comment_id);
   };
 
@@ -150,7 +151,7 @@ const Comment = ({ postId, comment }) => {
     <div className='comment'>
         <>
           <p className='comment-text'><span className="comment-username">{comment.user_username}</span> {updatedComment ? updatedComment : comment.comment}</p>
-          <div className='comment-show-reply-btn'onClick={() => setIsReplying(!isReplying)}>Reply</div>
+          <div className='comment-show-reply-btn' onClick={() => setIsReplying(!isReplying)} style={{ textDecoration: isReplying && "underline"}}>Reply</div>
           <div className='comment-btns'>
             { (comment.user_id === isLoggedInUserProfile && author)&&
             <>

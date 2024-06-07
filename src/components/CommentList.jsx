@@ -7,7 +7,7 @@ const CommentList = ({ postId, comments, onAddComment, onUpdateComment, onDelete
 
   return (
     <div className={`comment-list ${isChildList && "comment-list-child"}`}>
-      {comments.map(comment => (
+      {comments.filter(c => c.comment != "Comment is deleted").map(comment => (
         <Comment
           postId={postId}
           key={comment.comment_id}
