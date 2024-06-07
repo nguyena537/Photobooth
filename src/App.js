@@ -6,6 +6,7 @@ import Profile from './pages/Profile';
 import Postings from './pages/Postings';
 
 import Redirect from './pages/Redirect';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 

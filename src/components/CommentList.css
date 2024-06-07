@@ -1,46 +1,9 @@
-/* Comment.css */
-.comment {
-    margin-bottom: 10px;
-  }
-  
-  .comment-text {
-    margin-bottom: 5px;
-  }
-  
-  .comment-edit-textarea {
-    width: 100%;
-    margin-bottom: 5px;
-  }
-  
-  .comment-btns {
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .comment-save-btn,
-  .comment-edit-btn,
-  .comment-delete-btn {
-    padding: 5px 10px;
-    cursor: pointer;
-  }
-  
-  .comment-save-btn {
-    background-color: green;
-    color: white;
-  }
-  
-  .comment-edit-btn {
-    background-color: blue;
-    color: white;
-  }
-  
-  .comment-delete-btn {
-    background-color: red;
-    color: white;
-  }
-  
-  /* CommentList.css */
-  .comment-list {
-    margin-top: 20px;
-  }
+/* CommentList.css */
+.comment-list {
+  margin-top: 10px;
+}
+
+.comment-list-child {
+  margin-left: 30px;
+}
   

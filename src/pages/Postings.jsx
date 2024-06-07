@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Postings.css';
 import Post from '../components/Post';
+import NavbarComponent from '../components/NavbarComponent';
 
 const Postings = () => {
 
@@ -28,6 +29,8 @@ const Postings = () => {
   }, []);
 
   return (
+    <>
+    <NavbarComponent currentPage="posts" />
     <div className='postings-container'>
       <div className='postings-column'>
         {posts.map(post => (
@@ -45,6 +48,8 @@ const Postings = () => {
         ))}
       </div>
     </div>
+    </>
+    
   )
 }
 

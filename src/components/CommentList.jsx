@@ -3,11 +3,11 @@ import React from 'react';
 import Comment from './Comment';
 import './CommentList.css';
 
-const CommentList = ({ postId, comments, onAddComment, onUpdateComment, onDeleteComment, onFetchComments }) => {
+const CommentList = ({ postId, comments, onAddComment, onUpdateComment, onDeleteComment, onFetchComments, isChildList }) => {
 
   return (
-    <div className='comment-list'>
-      {comments.map(comment => (
+    <div className={`comment-list ${isChildList ? "comment-list-child" : ""}`}>
+      {comments.filter(c => c.comment != "Comment is deleted").map(comment => (
         <Comment
           postId={postId}
           key={comment.comment_id}

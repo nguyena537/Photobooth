@@ -1,5 +1,5 @@
 .post {
-    width: 482px;
+    width: 550px;
     height: 682px;
     background-color: whitesmoke;
     display: flex;
@@ -7,6 +7,7 @@
     margin: 10px;
     padding: 5px;
     gap: 5px;
+    overflow: auto;
 }
 
 .post-handle, .post-interact {
@@ -46,10 +47,24 @@ a {
     max-width: 482px;
 }
 
+.post-interact {
+    display: flex;
+    align-items: center;
+    height: 30px;
+    margin-top: 5px;
+    margin-left: 5px;
+    gap: 10px;
+}
+
 .post-interact-heart, .post-interact-comment {
     width: 40px;
     height: 40px;
 }
+
+.post-interact-heart {
+    padding-bottom: 2px;
+}
+
 .post-interact-heart:active, .post-interact-comment:active {
     width: 36px;
     height: 36px;
@@ -58,10 +73,15 @@ a {
 
 .post-text {
     background-color: transparent;
-    display: flex;
-    flex-direction: column;
+    margin: 0;
+    margin-left: 10px;
 }
 
-p {
-    text-align: center;
+.post-username {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.comment-list {
+    margin: 0;
 }
