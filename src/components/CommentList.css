@@ -1,37 +1,9 @@
-/* Comment.css */
-.comment {
-  margin-bottom: 10px;
-}
-
-.comment-text {
-  margin: 0;
-}
-
-.comment-edit-textarea {
-  width: 100%;
-  margin-bottom: 5px;
-}
-
-.comment-btns {
-  display: flex;
-  justify-content: space-between;
-}
-
-.comment-save-btn,
-.comment-edit-btn,
-.comment-delete-btn {
-  padding: 5px 10px;
-  cursor: pointer;
-}
-
 /* CommentList.css */
 .comment-list {
   margin-top: 10px;
-
 }
 
 .comment-list-child {
   margin-left: 30px;
-
 }
   

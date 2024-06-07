@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Button from 'react-bootstrap/Button';
@@ -13,6 +13,18 @@ export default function NavbarComponent({ currentPage }) {
         sessionStorage.clear();
         window.location.href = "/";
     }
+
+    useEffect(() => {
+      const now = new Date();
+      if (sessionStorage.getItem('token') == null) {
+        window.location.href = "/";
+        return;
+      } else if (now.getTime() > parseInt(sessionStorage.getItem('expiry_date'))) {
+        sessionStorage.clear();
+        window.location.href = "/";
+        return;
+      }
+    }, []);
 
     return (
         <>

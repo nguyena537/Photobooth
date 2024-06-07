@@ -6,7 +6,7 @@ import './CommentList.css';
 const CommentList = ({ postId, comments, onAddComment, onUpdateComment, onDeleteComment, onFetchComments, isChildList }) => {
 
   return (
-    <div className={`comment-list ${isChildList && "comment-list-child"}`}>
+    <div className={`comment-list ${isChildList ? "comment-list-child" : ""}`}>
       {comments.filter(c => c.comment != "Comment is deleted").map(comment => (
         <Comment
           postId={postId}

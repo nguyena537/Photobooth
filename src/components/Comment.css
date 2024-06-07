@@ -1,20 +1,18 @@
 /* Comment.css */
 .comment {
+  height: fit-content;
   margin-bottom: 10px;
+  position: relative;
 }
 
 .comment-text {
+  margin: 0;
 }
 
 .comment-edit-textarea {
   width: 100%;
   margin-bottom: 5px;
 }
-
-/* .comment-btns {
-  display: flex;
-  justify-content: space-between;
-} */
 
 .comment-save-btn,
 .comment-edit-btn,
@@ -34,10 +32,9 @@
 }
 
 .comment-edit-btn {
-  position: relative;
-  left: 90%;
-  bottom: 52px;
-  
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 .comment-delete-btn {
@@ -56,10 +53,9 @@
 }
 
 .comment-show-replies-btn {
-  position: relative;
-  right: 75%;
   font-size: 14px;
   color: #565656;
+  margin: 0;
 }
 
 .comment-show-replies-btn:hover,

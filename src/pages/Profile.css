@@ -190,7 +190,7 @@
 
 .submit-button {
   width: 125px;
-  height: 25px;
+  height: 40px;
   background-color: white;
   border-radius: 30px;
   font-weight: 500;
@@ -206,6 +206,25 @@
 
 .preview-post-img {
   object-fit: cover;
-  width: 150px;
-  height: 150px;
+  width: 200px;
+  height: 200px;
+}
+
+.no-posts {
+  display: inline-block;
+  text-align: center;
+}
+
+.no-posts-container {
+  display: inline-block;
+  text-align: center;
+  width: 100%;
+}
+
+.add-post-form-label {
+  margin-right: 15px;
+}
+
+.form-header {
+  margin-bottom: 30px;
 }

@@ -7,9 +7,11 @@ import hideIcon from '../assets/hide-icon.png';
 
 
 const Signup = () => {
-    const [signupInfo, setSignupInfo] = useState({ username: "", email: "", password: ""});
+    const [signupInfo, setSignupInfo] = useState({ name: "", username: "", email: "", password: ""});
     const [loading, setLoading] = useState(false);
     const [passwordVisibility, setPasswordVisibility] = useState(false);
+    const [signupFailed, setSignupFailed] = useState(false);
+    const [emailExists, setEmailExists] = useState(false);
 
     const navigatePages = useNavigate();
     
@@ -27,13 +29,16 @@ const Signup = () => {
     const handleFormChange = (event) => {
         let { name, value } = event.target;
         setSignupInfo({ ...signupInfo, [name]: value});
+        setSignupFailed(false);
+        setEmailExists(false);
     }
 
     const handleSignup = async () => {
         try {
+            console.log(signupInfo)
             setLoading(true);
             const body = JSON.stringify(signupInfo);
-            const response = await fetch("https://photo-server-deplo.onrender.com/auth/signup", {
+            const response = await fetch("https://photo-server-deplo.onrender.com/auth/register", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -41,11 +46,26 @@ const Signup = () => {
                 body: body
             });
 
-            if (response.status === 201) {
+            if (response.status === 200) {
                 const data = await response.json();
-                window.location.href = `/redirect?token=${data.token}&userEmail=${data.userEmail}&userId=${data.userId}`;
+
+                const profileRes = await fetch("https://photo-server-deplo.onrender.com/profile", {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': data.token
+                    }
+                });
+
+                const profileData = await profileRes.json();
+
+                window.location.href = `/redirect?token=${data.token}&userEmail=${signupInfo.email}&userId=${profileData.user_id}&userName=${signupInfo.username}`;
+            } else if (response.status === 401){
+                console.log("Email exists.");
+                setEmailExists(true);
             } else {
                 console.log("Signup failed.");
+                setSignupFailed(true);
             }
             setLoading(false);
         } catch (error) {
@@ -73,7 +93,12 @@ const Signup = () => {
             </div>
             
             <div className="form-container">
-            <div className="forms" id='top-form'>
+                <div className="forms" id='top-form'>
+                    <label htmlFor="profile-name" className='box-text'>What is your full name?</label> <br />
+                    <input type="text" name="name" id="name" className='form-boxes' placeholder='Full name' onChange={handleFormChange} required/>
+                </div>
+
+                <div className="forms" id='top-form'>
                     <label htmlFor="profile-name" className='box-text'>What should we call you?</label> <br />
                     <input type="text" name="username" id="username" className='form-boxes' placeholder='Enter your profile name' onChange={handleFormChange} required/>
                 </div>
@@ -109,7 +134,7 @@ const Signup = () => {
                             required
                         />
                     </div>
-                    <p className='password-requirements'>Use 8 or more characters with a mix of letters, numbers & symbols</p>
+                    <p className='password-requirements'></p>
                     <button
                         type='button'
                         id='create-account-button'
@@ -118,6 +143,8 @@ const Signup = () => {
                     >
                         {loading ? "Loading..." : "Create an account"}
                     </button>
+                    {signupFailed && <p>Signup failed</p>}
+                    {emailExists && <p>An account with this email already exists</p>}
                 </div>            
             <p className='line-break'><span>OR</span></p>
 

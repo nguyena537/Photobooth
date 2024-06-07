@@ -142,9 +142,7 @@ const Comment = ({ postId, comment }) => {
   };
 
   useEffect(() => {
-    if (showChildComments) {
-      fetchComments(postId, comment.comment_id);
-    }
+    fetchComments(postId, comment.comment_id);
   }, [showChildComments]);
 
   return (
@@ -152,15 +150,12 @@ const Comment = ({ postId, comment }) => {
         <>
           <p className='comment-text'><span className="comment-username">{comment.user_username}</span> {updatedComment ? updatedComment : comment.comment}</p>
           <div className='comment-show-reply-btn' onClick={() => setIsReplying(!isReplying)} style={{ textDecoration: isReplying && "underline"}}>Reply</div>
-          <div className='comment-btns'>
-            { (comment.user_id === isLoggedInUserProfile && author)&&
-            <>
-                <div className='comment-edit-btn' onClick={handleEdit} style={{ textDecoration: isEditing && "underline"}}>Edit</div>
-            </>
-            }
-            <div className='comment-show-replies-btn' onClick={toggleChildComments}>
-              {showChildComments ? <span>&#9651; Hide replies</span> : <span>&#9661; Show replies</span>}
-            </div>
+          {(comment.user_id === isLoggedInUserProfile && author) &&
+              <div className='comment-edit-btn' onClick={handleEdit} style={{ textDecoration: isEditing && "underline"}}>Edit</div>
+          }
+            
+          <div className='comment-show-replies-btn' onClick={toggleChildComments}>
+            {childComments.length > 0 && (showChildComments ? <span>&#9651; Hide replies</span> : <span>&#9661; Show replies</span>)}
           </div>
           {isEditing ? (
             <>

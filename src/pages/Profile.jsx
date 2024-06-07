@@ -203,9 +203,16 @@ const Profile = () => {
   }
 
   useEffect(() => {
+    const now = new Date();
+    console.log(now.getTime(), sessionStorage.getItem('expiry_date'));
     if (sessionStorage.getItem('token') == null) {
       window.location.href = "/";
       return;
+    } else if (now.getTime() > sessionStorage.getItem('expiry_date')) {
+      console.log("hi")
+      //sessionStorage.clear();
+      //window.location.href = "/";
+      //return;
     }
     getProfile();
   }, [isFriend]);
@@ -220,20 +227,10 @@ const Profile = () => {
           <Popup trigger={<img src={profile.user_image ?? defaultAvatar} alt="profile pic" className="profile-picture" title="Edit profile" />} 
                  position="right center" contentStyle={{ width: '1000px', padding: '50px' }} modal>
             <div className="edit-profile">
-              <h1>Edit Profile</h1>
+              <h1 className="form-header">Edit Profile</h1>
               <form className="edit-profile-form" onSubmit={handleEditProfileSubmit}>
                 <label>Profile Picture</label>              
                 <input type="file" id="profilePic" name="profilePic" accept="image/*" />
-{/* 
-                <br /><br />
-
-                <label>Name</label>
-                <input type="text" placeholder={profile.user_name}/>
-
-                <br /><br />
-
-                <label>Username</label>
-                <input type="text" placeholder={profile.user_username}/> */}
 
                 <br /><br />
 
@@ -259,7 +256,7 @@ const Profile = () => {
             <Popup trigger={<button className="edit-profile-button">Edit Profile</button>} 
                  position="right center" contentStyle={{ width: '1000px', padding: '50px' }} modal>
               <div className="edit-profile">
-                <h1>Edit Profile</h1>
+                <h1 className="form-header">Edit Profile</h1>
                 <form className="edit-profile-form" onSubmit={handleEditProfileSubmit}>
                   <label>Profile Picture</label>              
                   <input type="file" id="profilePic" name="profilePic" accept="image/*" />
@@ -299,11 +296,10 @@ const Profile = () => {
             
           </Popup>
         </div>
-        
-        <div className="profile-posts-container">
-          <div className='profile-posts'>
-            {posts.length > 0 ? 
-              posts.map((post) => 
+        {posts.length > 0 ? 
+              <div className="profile-posts-container">
+                <div className='profile-posts'>
+                  {posts.map((post) => 
                     <Popup trigger={<img src={post.post_image} alt="post" className="profile-post-image" />} position="right center" contentStyle={{ width: '550px', overflow: 'auto', backgroundColor: "whitesmoke", display: "flex", justifyContent: "center"}} modal>
                       <Post
                         postId={post.post_id}
@@ -315,21 +311,22 @@ const Profile = () => {
                         loggedInUsername={sessionStorage.getItem('user_username')}
                       />
                     </Popup>
-              ) : <h1>No posts</h1>
-            }
-          </div>
-        </div>
+                  )}
+                </div>
+              </div>
+        
+            : <div className="no-posts-container"><h1 className="no-posts">No posts</h1></div>}
 
         {isLoggedInUserProfile && <Popup trigger={<button className="add-post-button">+</button>} position="right center" contentStyle={{ width: '512px', padding: '50px' }} onClose={() => setPreviewPostImg(null)} modal>
           <div className="add-post">
-            <h1>Add Post</h1>
+            <h1 className="form-header">Add Post</h1>
             <form className="add-post-form" onSubmit={handleAddPostSubmit}>
-              <label>Image</label>              
+              <label className="add-post-form-label">Image</label>              
               <input type="file" id="postImg" name="postImg" accept="image/*" onChange={postImgChange} />
               {previewPostImg != null && <div><br /><img src={previewPostImg} className="preview-post-img" /></div>}
               <br /><br />
 
-              <label>Caption</label>
+              <label className="add-post-form-label">Caption</label>
               <input type="text" name="caption" />
 
               <br /><br />
