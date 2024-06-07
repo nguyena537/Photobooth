@@ -4,19 +4,17 @@ import CommentList from './CommentList';
 
 const Comment = ({ postId, comment }) => {
   const [isEditing, setIsEditing] = useState(false);
-  
   const isLoggedInUserProfile = sessionStorage.getItem('user_id')
   const [replyText, setReplyText] = useState('');
   const [updatedComment, setUpdatedComment] = useState(comment.comment);
   const [showChildComments, setShowChildComments] = useState(false);
   const [childComments, setChildComments] = useState([]);
-    const baseUrl = 'https://photo-server-deplo.onrender.com';
-
-    const [author, setAuthor] = useState(true);
+  const baseUrl = 'https://photo-server-deplo.onrender.com';
+  const [author, setAuthor] = useState(true);
+  const [isReplying, setIsReplying] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const fetchComments = async (postId, parent_id) => {
-    
-    
     try {
       let url = `${baseUrl}/comments/${postId}`;
       if (parent_id) {
@@ -123,7 +121,7 @@ const Comment = ({ postId, comment }) => {
   };
 
   const handleEdit = () => {
-    setIsEditing(true);
+    setIsEditing(!isEditing);
   };
 
   const handleSave = async () => {
@@ -136,7 +134,10 @@ const Comment = ({ postId, comment }) => {
   };
 
   const handleReply = async () => {
+    setLoading(true);
     await addComment(postId, replyText, comment.comment_id);
+    setLoading(false);
+    setIsReplying(false);
   };
 
   useEffect(() => {
@@ -147,29 +148,32 @@ const Comment = ({ postId, comment }) => {
 
   return (
     <div className='comment'>
-      {(
         <>
-          <p className='comment-text'>{updatedComment?updatedComment:comment.comment}</p>
+          <p className='comment-text'><span className="comment-username">{comment.user_username}</span> {updatedComment ? updatedComment : comment.comment}</p>
+          <div className='comment-show-reply-btn'onClick={() => setIsReplying(!isReplying)}>Reply</div>
           <div className='comment-btns'>
             { (comment.user_id === isLoggedInUserProfile && author)&&
             <>
-                <button className='comment-reply-btn' onClick={handleEdit}>Edit</button>
-                <button className='comment-delete-btn' onClick={handleDelete}>Delete</button>
+                <div className='comment-edit-btn' onClick={handleEdit} style={{ textDecoration: isEditing && "underline"}}>Edit</div>
             </>
             }
-            <button className='comment-child-btn' onClick={toggleChildComments}>
-              {showChildComments ? 'Hide replies' : 'Show replies'}
-            </button>
+            <div className='comment-show-replies-btn' onClick={toggleChildComments}>
+              {showChildComments ? <span>&#9651; Hide replies</span> : <span>&#9661; Show replies</span>}
+            </div>
           </div>
           {isEditing ? (
             <>
               <textarea className='comment-edit-textarea' value={updatedComment} onChange={(e) => setUpdatedComment(e.target.value)} />
-              <button className='comment-save-btn' onClick={handleSave}>Save</button>
+              <div className="comment-edit-btns">
+                <button className='comment-save-btn' onClick={handleSave}>Save</button>
+                <button className='comment-delete-btn' onClick={handleDelete}>Delete</button>
+              </div>
+              
             </>
           ) : (
-            <>
+            isReplying && <>
               <textarea className='comment-reply-textarea' value={replyText} onChange={(e) => setReplyText(e.target.value)} />
-              <button className='comment-reply-btn' onClick={handleReply}>Reply</button>
+              <button className='comment-reply-btn' onClick={handleReply} disabled={loading}>Reply</button>
             </>
           )}
           {showChildComments && (
@@ -181,11 +185,11 @@ const Comment = ({ postId, comment }) => {
                 onCommentUpdate={updateComment}
                 onCommentDelete={deleteComment}
                 onFetchComments={fetchComments}
+                isChildList={true}
               />
             </div>
           )}
         </>
-      )}
     </div>
   );
 };

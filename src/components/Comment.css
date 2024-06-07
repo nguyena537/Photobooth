@@ -1,46 +1,78 @@
 /* Comment.css */
 .comment {
-    margin-bottom: 10px;
-  }
+  margin-bottom: 10px;
+}
+
+.comment-text {
+}
+
+.comment-edit-textarea {
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+/* .comment-btns {
+  display: flex;
+  justify-content: space-between;
+} */
+
+.comment-save-btn,
+.comment-edit-btn,
+.comment-delete-btn,
+.comment-show-reply-btn {
+  cursor: pointer;
+  color: #565656;
+  font-size: 14px;
+  width: fit-content;
+  height: fit-content;
+  margin: 0;
+}
+
+.comment-save-btn {
+  background-color: green;
+  color: white;
+}
+
+.comment-edit-btn {
+  position: relative;
+  left: 90%;
+  bottom: 52px;
   
-  .comment-text {
-    margin-bottom: 5px;
-  }
-  
-  .comment-edit-textarea {
-    width: 100%;
-    margin-bottom: 5px;
-  }
-  
-  .comment-btns {
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .comment-save-btn,
-  .comment-edit-btn,
-  .comment-delete-btn {
-    padding: 5px 10px;
-    cursor: pointer;
-  }
-  
-  .comment-save-btn {
-    background-color: green;
-    color: white;
-  }
-  
-  .comment-edit-btn {
-    background-color: blue;
-    color: white;
-  }
-  
-  .comment-delete-btn {
-    background-color: red;
-    color: white;
-  }
-  
-  /* CommentList.css */
-  .comment-list {
-    margin-top: 20px;
-  }
+}
+
+.comment-delete-btn {
+  color: white;
+  background-color: red;
+}
+
+/* CommentList.css */
+.comment-list {
+  margin-top: 20px;
+}
+
+.comment-username {
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.comment-show-replies-btn {
+  position: relative;
+  right: 75%;
+  font-size: 14px;
+  color: #565656;
+}
+
+.comment-show-replies-btn:hover,
+.comment-save-btn:hover,
+.comment-edit-btn:hover,
+.comment-delete-btn:hover,
+.comment-show-reply-btn:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.comment-edit-btns {
+  display: flex;
+  gap: 10px;
+}
   

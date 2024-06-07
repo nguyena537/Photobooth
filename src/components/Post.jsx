@@ -7,12 +7,10 @@ import defaultPhoto from '../assets/default photo.png';
 
 import CommentList from './CommentList';
 const Post = (props) => {
-
-  
-  const { postId, user_id, username, userImage, postImage, likes, caption } = props;
+  const { postId, user_id, username, userImage, postImage, likes, caption, loggedInUsername } = props;
   const [likeNum, setLikes] = useState(likes);
   const [clicked, setClicked] = useState(false);
-
+  const [loading, setLoading] = useState(false);
   const [comments, setComments] = useState([]);
   const [isReplying, setIsReplying] = useState(false);
 
@@ -83,7 +81,8 @@ const Post = (props) => {
       const commentData = {
         post_id: postId,
         comment: comment,
-        parent_id: parentId
+        parent_id: parentId,
+        user_username: sessionStorage.getItem('user_username')
       };
   
       const response = await fetch(`${url}/comments/${postId}`, {
@@ -96,6 +95,7 @@ const Post = (props) => {
       });
       if (response.ok) {
         const data = await response.json();
+        console.log(data);
         setComments([...comments, data]);
 
         setIsReplying(false);
@@ -177,16 +177,17 @@ const Post = (props) => {
       <div className='post-interact'>
         <FcLike className={`post-interact-heart ${clicked ? 'clicked' : ''}`} size={40} onClick={handleLikes}/>
         <FaRegComment className='post-interact-comment' size={40} onClick={toggleReplyMode}/>
+        
       </div>
       {isReplying && (
         <div className='reply-field'>
-          <input type="text" value={replyText} onChange={handleReplyTextChange} placeholder="Write a reply..."/>
-          <button onClick={() => addComment(postId, replyText, null)}>Reply</button>
+          <input type="text" value={replyText} onChange={handleReplyTextChange} placeholder="Write a comment..."/>
+          <button onClick={() => addComment(postId, replyText, null)} disabled={loading}>Comment</button>
         </div>
       )}
       <div className='post-text'>
-        <p>{likeNum} likes</p>
-        <p>{caption}</p>
+        <p className="like-count">{likeNum} likes</p>
+        <p><span className="post-username">{username}</span> {caption}</p>
         <CommentList
           postId={postId}
           comments={comments}

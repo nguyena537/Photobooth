@@ -65,7 +65,7 @@ const Login = () => {
                     },
                 });
                 const profileData = await profileRes.json();
-                window.location.href = `/redirect?token=${data.token}&userEmail=${profileData.user_email}&userId=${profileData.user_id}`
+                window.location.href = `/redirect?token=${data.token}&userEmail=${profileData.user_email}&userId=${profileData.user_id}&userName=${profileData.user_username}`
             }
             else
             {

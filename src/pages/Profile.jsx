@@ -7,6 +7,7 @@ import Post from '../components/Post';
 import 'reactjs-popup/dist/index.css';
 import './Profile.css';
 import defaultAvatar from '../assets/default avatar.png';
+import NavbarComponent from '../components/NavbarComponent'
 
 const Profile = () => {
   const [profile, setProfile] = useState({});
@@ -19,6 +20,7 @@ const Profile = () => {
   const [previewPostImg, setPreviewPostImg] = useState(null);
   const { userId } = useParams();
   const isLoggedInUserProfile = (userId == null || userId == sessionStorage.getItem('user_id'));
+  const username = sessionStorage.getItem('user_username');
   
 
   const getProfile = async () => {
@@ -210,6 +212,7 @@ const Profile = () => {
 
   return (
     <div className='profile-page'>
+        <NavbarComponent currentPage="profile" />
         {!pageLoading ? 
         <div>
         <div className='profile-information'>
@@ -300,9 +303,8 @@ const Profile = () => {
         <div className="profile-posts-container">
           <div className='profile-posts'>
             {posts.length > 0 ? 
-              posts.length > 0 ? 
               posts.map((post) => 
-                    <Popup trigger={<img src={post.post_image} alt="post" className="profile-post-image" />} position="right center" contentStyle={{ width: '512px', overflow: 'scroll'}} modal>
+                    <Popup trigger={<img src={post.post_image} alt="post" className="profile-post-image" />} position="right center" contentStyle={{ width: '550px', overflow: 'auto', backgroundColor: "whitesmoke", display: "flex", justifyContent: "center"}} modal>
                       <Post
                         postId={post.post_id}
                         username={post.user_username}
@@ -310,9 +312,10 @@ const Profile = () => {
                         userImage={post.user_image}
                         caption={post.description}
                         likes={post.likes}
+                        loggedInUsername={sessionStorage.getItem('user_username')}
                       />
                     </Popup>
-              ) : <h1>No posts</h1> : <h1>No posts</h1>
+              ) : <h1>No posts</h1>
             }
           </div>
         </div>
@@ -339,7 +342,7 @@ const Profile = () => {
 
         <div className="space" />
         </div>
-        : <div class="page-loading"><ReactLoading type="spin" color="#232323"
+        : <div className="page-loading"><ReactLoading type="spin" color="#232323"
         height={100} width={50} /></div>}
     </div>
   )
