@@ -94,12 +94,14 @@ const Login = () => {
             </div>
             
             <div className="main-container">
-                <div className="top-container">
+                <div className="top-container-1">
                     <h2 className='title'>Log in to Photobooth</h2>
-                    <GoogleButton className="google-button" onClick={auth} disabled={loading}/>
+                    <div className="google-button-1">
+                    <GoogleButton onClick={auth} disabled={loading}/>
+                    </div>
                 </div>
                 <p className='line-break'><span>OR</span></p>
-                <div className="form-container">
+                <div className="form-container-1">
                     <div className="forms" id='top-form'>
                         <label htmlFor="email" className='box-text'>Email Address</label> <br />
                         <input type="email" name="email" id="email" className='form-boxes' onChange={handleFormChange} required/>

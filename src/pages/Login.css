@@ -47,14 +47,15 @@ body {
     margin-top: 65px;
   }
 
- .top-container {
+ .top-container-1 {
     display: flex;
     flex-direction: column;
     justify-content: center;
     padding-bottom: 40px;
+    padding-left: 10px;
  }
 
- .form-container {
+ .form-container-1 {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -114,7 +115,7 @@ body {
  }
 
  #signUp-button {
-    width: 590px;
+    width: 100%;
     height: 50px;
     background-color: white;
     border-radius: 30px;
@@ -154,4 +155,8 @@ body {
    width: 16px;
    height: 16px;
    padding-right: 5px;
+}
+
+.google-button-1 {
+   padding-left: 20px;
 }
