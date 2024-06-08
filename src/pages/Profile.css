@@ -228,3 +228,15 @@
 .form-header {
   margin-bottom: 30px;
 }
+
+@media (width <= 1300px) {
+  .profile-posts {
+    width: 825px;
+  }
+}
+
+@media (width <= 900px) {
+  .profile-posts {
+    width: 400px;
+  }
+}

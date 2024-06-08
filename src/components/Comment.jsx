@@ -148,28 +148,25 @@ const Comment = ({ postId, comment }) => {
   return (
     <div className='comment'>
         <>
-          <p className='comment-text'><span className="comment-username">{comment.user_username}</span> {updatedComment ? updatedComment : comment.comment}</p>
+          <p className='comment-text'><span ><a className="comment-username" href={`/profile/${comment.user_id}`}>{comment.user_username}</a></span> {updatedComment ? updatedComment : comment.comment}</p>
           <div className='comment-show-reply-btn' onClick={() => setIsReplying(!isReplying)} style={{ textDecoration: isReplying && "underline"}}>Reply</div>
           {(comment.user_id === isLoggedInUserProfile && author) &&
               <div className='comment-edit-btn' onClick={handleEdit} style={{ textDecoration: isEditing && "underline"}}>Edit</div>
           }
-            
+          {isReplying && <>
+              <textarea className='comment-reply-textarea' value={replyText} onChange={(e) => setReplyText(e.target.value)} />
+              <button className='comment-reply-btn' onClick={handleReply} disabled={loading}>Reply</button>
+          </>}  
           <div className='comment-show-replies-btn' onClick={toggleChildComments}>
             {childComments.length > 0 && (showChildComments ? <span>&#9651; Hide replies</span> : <span>&#9661; Show replies</span>)}
           </div>
-          {isEditing ? (
+          {isEditing && (
             <>
               <textarea className='comment-edit-textarea' value={updatedComment} onChange={(e) => setUpdatedComment(e.target.value)} />
               <div className="comment-edit-btns">
                 <button className='comment-save-btn' onClick={handleSave}>Save</button>
                 <button className='comment-delete-btn' onClick={handleDelete}>Delete</button>
               </div>
-              
-            </>
-          ) : (
-            isReplying && <>
-              <textarea className='comment-reply-textarea' value={replyText} onChange={(e) => setReplyText(e.target.value)} />
-              <button className='comment-reply-btn' onClick={handleReply} disabled={loading}>Reply</button>
             </>
           )}
           {showChildComments && (
