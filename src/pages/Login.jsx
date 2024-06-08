@@ -92,59 +92,61 @@ const Login = () => {
             <div className="logo-container">
                 <img src={logo} alt="Photobooth Logo" className='logo'/>
             </div>
-            
-            <div className="main-container">
-                <div className="top-container-1">
-                    <h2 className='title'>Log in to Photobooth</h2>
-                    <div className="google-button-1">
-                    <GoogleButton onClick={auth} disabled={loading}/>
-                    </div>
-                </div>
-                <p className='line-break'><span>OR</span></p>
-                <div className="form-container-1">
-                    <div className="forms" id='top-form'>
-                        <label htmlFor="email" className='box-text'>Email Address</label> <br />
-                        <input type="email" name="email" id="email" className='form-boxes' onChange={handleFormChange} required/>
-                    </div>
-
-                    <div className="forms" id='bottom-form'>
-                        <div className="password-row">
-                            <label htmlFor="password" className='box-text'>Password</label>
-                            <button
-                                type="button"
-                                onClick={() => setPasswordVisibility(!passwordVisibility)}
-                                className="password-toggle-button"
-                            >
-                                {passwordVisibility && <img src={hideIcon} alt="Hide Icon" className="hide-icon" />} {/* Display hide icon when password is visible */}
-                                {passwordVisibility ? "Hide" : "Show"}
-                            </button>
+            <div className="center-div">
+                <div className="login-main-container">
+                    <div className="top-container-1">
+                        <h2 className='title'>Log in to Photobooth</h2>
+                        <div className="google-button-1">
+                        <GoogleButton onClick={auth} disabled={loading}/>
                         </div>
-                        <input
-                            type={passwordVisibility ? "text" : "password"}
-                            name="password"
-                            id="password"
-                            className='form-boxes'
-                            onChange={handleFormChange}
-                            required
-                        />
+                    </div>
+                    <p className='line-break'><span>OR</span></p>
+                    <div className="form-container-1">
+                        <div className="forms" id='top-form'>
+                            <label htmlFor="email" className='box-text'>Email Address</label> <br />
+                            <input type="email" name="email" id="email" className='form-boxes' onChange={handleFormChange} required/>
+                        </div>
+
+                        <div className="forms" id='bottom-form'>
+                            <div className="password-row">
+                                <label htmlFor="password" className='box-text'>Password</label>
+                                <button
+                                    type="button"
+                                    onClick={() => setPasswordVisibility(!passwordVisibility)}
+                                    className="password-toggle-button"
+                                >
+                                    {passwordVisibility && <img src={hideIcon} alt="Hide Icon" className="hide-icon" />} {/* Display hide icon when password is visible */}
+                                    {passwordVisibility ? "Hide" : "Show"}
+                                </button>
+                            </div>
+                            <input
+                                type={passwordVisibility ? "text" : "password"}
+                                name="password"
+                                id="password"
+                                className='form-boxes'
+                                onChange={handleFormChange}
+                                required
+                            />
+                        </div>
+
+
+
+                        <div className="submit">
+                            <button type='submit' id='login-button' onClick={sendLogin} disabled={loading}>{loading ? "Loading..." : "Log in"}</button>
+                        </div>
+
+                        {loginIncorrect && <p>Username or password is incorrect.</p>}
+
+                        <hr className="separator" />
                     </div>
 
-
-
-                    <div className="submit">
-                        <button type='submit' id='login-button' onClick={sendLogin} disabled={loading}>{loading ? "Loading..." : "Log in"}</button>
+                    <div className="bottom-container">
+                        <p className='no-account'>Don't have an account?</p>
+                        <button id="signUp-button" onClick={() => navigatePages('/signup')}>Sign Up</button>
                     </div>
-
-                    {loginIncorrect && <p>Username or password is incorrect.</p>}
-
-                    <hr className="separator" />
-                </div>
-
-                <div className="bottom-container">
-                    <p className='no-account'>Don't have an account?</p>
-                    <button id="signUp-button" onClick={() => navigatePages('/signup')}>Sign Up</button>
                 </div>
             </div>
+            
         </div>
     )
 
