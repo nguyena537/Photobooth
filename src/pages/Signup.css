@@ -5,14 +5,12 @@ body {
 }
 
 .signup-page {
-    display: flex;
-    padding: 40px;
+   padding: 40px;
 }
 
-.main-container {
+.signup-main-container {
     display: flex;
     flex-direction: column;
-    margin-left: 14%;
     align-items: center;
     width: 580px;
     height: auto;
@@ -21,6 +19,12 @@ body {
 .logo-container img {
     width: 210px;
     height: auto;
+}
+
+.logo-container {
+   position: absolute;
+   left: 30px;
+   top: 30px;
 }
 
 .line-break {
@@ -120,6 +124,12 @@ body {
 
  .login-redirect:hover {
    cursor: pointer;
+ }
+
+ .center-div {
+   display: flex;
+   justify-content: center;
+   width: 100%;
  }
 
  
