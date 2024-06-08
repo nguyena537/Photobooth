@@ -1,0 +1,10 @@
+.friends-rec-button {
+    display: block; 
+  }
+  
+  @media (min-width: 900px) {
+    .friends-rec-button {
+      display: none;
+    }
+  }
+  

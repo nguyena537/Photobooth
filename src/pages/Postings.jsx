@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import './Postings.css';
 import Post from '../components/Post';
+
 import NavbarComponent from '../components/NavbarComponent';
 
+
+import FriendsRec from '../components/Friends';
 const Postings = () => {
 
   const[posts, setPosts] = useState([]);
@@ -47,6 +50,9 @@ const Postings = () => {
           />
         ))}
       </div>
+      <div className='friends-rec-column'>
+          <FriendsRec /> {/* Add the FriendsRec component */}
+        </div>
     </div>
     </>
     
