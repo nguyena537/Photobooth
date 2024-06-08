@@ -51,6 +51,7 @@ router.get('/:post_id', authorization, async (req, res) => {
 });
 
 
+
 // Add a comment to a post
 router.post('/:post_id', authorization, async (req, res) => {
     const { post_id } = req.params;
@@ -64,13 +65,26 @@ router.post('/:post_id', authorization, async (req, res) => {
         };
 
         const result = await pool.query(query);
-        res.status(201).json(result.rows[0]);
+        const comment_id = result.rows[0].comment_id;
+
+        // Fetch the comment along with the username
+        const userCommentQuery = {
+            text: `
+                SELECT c.*, u.user_username 
+                FROM comments_photo c
+                JOIN users_photo u ON c.user_id = u.user_id
+                WHERE c.comment_id = $1;
+            `,
+            values: [comment_id],
+        };
+
+        const userCommentResult = await pool.query(userCommentQuery);
+        res.status(201).json(userCommentResult.rows[0]);
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Internal server error' });
     }
-}); // <-- Add closing parenthesis here
-
+}); 
 // Update a comment
 router.put('/:comment_id', authorization, async (req, res) => {
     const { comment_id } = req.params;

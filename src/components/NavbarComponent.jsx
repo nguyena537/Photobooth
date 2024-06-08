@@ -1,12 +1,16 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
+
 import Button from 'react-bootstrap/Button';
 import Navbar from 'react-bootstrap/Navbar';
-import Modal from 'react-bootstrap/Modal';
 
+import Modal from 'react-bootstrap/Modal';
+import FriendsRec from './Friends';
+import './Navbar.css'
 export default function NavbarComponent({ currentPage }) {
     const [showLogout, setShowLogout] = useState(false);
+    const [showFriendsRec, setShowFriendsRec] = useState(false);
 
     function handleLogout() {
         setShowLogout(false);
@@ -27,6 +31,7 @@ export default function NavbarComponent({ currentPage }) {
     }, []);
 
     return (
+      
         <>
         <Navbar expand="lg" className="bg-body-tertiary">
         <Container>
@@ -34,10 +39,11 @@ export default function NavbarComponent({ currentPage }) {
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-                <Nav.Link href="/profile" style={{ fontWeight: currentPage == "profile" && "bold" }}>Your Profile</Nav.Link>
-                <Nav.Link href="/posts" style={{ fontWeight: currentPage == "posts" && "bold" }}>Posts</Nav.Link>
+                <Nav.Link href="/profile" style={{ fontWeight: currentPage === "profile" && "bold" }}>Your Profile</Nav.Link>
+                <Nav.Link href="/posts" style={{ fontWeight: currentPage === "posts" && "bold" }}>Posts</Nav.Link>
             </Nav>
             </Navbar.Collapse>
+            <Button onClick={() => setShowFriendsRec(true)} className="me-2 friends-rec-button">Friend Recommendations</Button>
             <Button onClick={() => setShowLogout(true)}>Logout</Button>
         </Container>
         </Navbar>
@@ -55,6 +61,15 @@ export default function NavbarComponent({ currentPage }) {
             Log Out
           </Button>
         </Modal.Footer>
+      </Modal>
+
+      <Modal show={showFriendsRec} onHide={() => setShowFriendsRec(false)} size="lg">
+        <Modal.Header closeButton>
+          <Modal.Title>Friend Recommendations</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <FriendsRec />
+        </Modal.Body>
       </Modal>
         </>
         
