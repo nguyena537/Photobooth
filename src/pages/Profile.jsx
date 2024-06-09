@@ -208,18 +208,13 @@ const Profile = () => {
     if (sessionStorage.getItem('token') == null) {
       window.location.href = "/";
       return;
-    } else if (now.getTime() > sessionStorage.getItem('expiry_date')) {
-      console.log("hi")
-      //sessionStorage.clear();
-      //window.location.href = "/";
-      //return;
     }
     getProfile();
   }, [isFriend]);
 
   return (
     <div className='profile-page'>
-        <NavbarComponent currentPage="profile" />
+        <NavbarComponent currentPage={isLoggedInUserProfile ? "profile" : ""} />
         {!pageLoading ? 
         <div>
         <div className='profile-information'>
@@ -309,6 +304,7 @@ const Profile = () => {
                         caption={post.description}
                         likes={post.likes}
                         loggedInUsername={sessionStorage.getItem('user_username')}
+                        user_id={post.user_id}
                       />
                     </Popup>
                   )}

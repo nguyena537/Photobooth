@@ -9,7 +9,7 @@
   margin: 0;
 }
 
-.comment-edit-textarea {
+.comment-edit-textarea, .comment-reply-textarea {
   width: 100%;
   margin-bottom: 5px;
 }
@@ -50,6 +50,8 @@
 .comment-username {
   font-weight: bold;
   margin-right: 5px;
+  color: black;
+  text-decoration: none;
 }
 
 .comment-show-replies-btn {
@@ -70,5 +72,9 @@
 .comment-edit-btns {
   display: flex;
   gap: 10px;
+}
+
+.comment-reply-btn {
+  border-width: 1px;
 }
   

@@ -4,8 +4,8 @@ import defaultAvatar from '../assets/default avatar.png';
 import { FcLike } from "react-icons/fc";
 import { FaRegComment } from "react-icons/fa";
 import defaultPhoto from '../assets/default photo.png';
-
 import CommentList from './CommentList';
+
 const Post = (props) => {
   const { postId, user_id, username, userImage, postImage, likes, caption, loggedInUsername } = props;
   const [likeNum, setLikes] = useState(likes);
@@ -167,7 +167,7 @@ const Post = (props) => {
     <div className='post'>
       <div className='post-handle'>
         <a href={`http://localhost:3000/profile/${user_id}`}><img className='post-avatar' src={userImage ?? defaultAvatar} alt='Avatar'/></a>
-        <p>@{username}</p>
+        <div className="username-container"><a className="post-username" href={`http://localhost:3000/profile/${user_id}`}>@{username}</a></div>
       </div>
 
       <div className='post-photo'>
@@ -187,7 +187,7 @@ const Post = (props) => {
       )}
       <div className='post-text'>
         <p className="like-count">{likeNum} likes</p>
-        <p><span className="post-username">{username}</span> {caption}</p>
+        <p><span className="post-caption-username">{username}</span> {caption}</p>
         <CommentList
           postId={postId}
           comments={comments}
