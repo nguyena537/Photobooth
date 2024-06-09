@@ -132,4 +132,13 @@ body {
    width: 100%;
  }
 
+ .error-message-div {
+   text-align: center;
+   margin-top: 10px;
+ }
+
+ .error-message {
+   color: red;
+ }
+
  

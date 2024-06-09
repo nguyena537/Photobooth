@@ -47,6 +47,8 @@ const Postings = () => {
             likes={post.likes}
             caption={post.description}
             //comments={post.comments}  
+            allPosts={posts}
+            setAllPosts={setPosts}
           />
         ))}
       </div>

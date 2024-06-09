@@ -4,10 +4,11 @@ import defaultAvatar from '../assets/default avatar.png';
 import { FcLike } from "react-icons/fc";
 import { FaRegComment } from "react-icons/fa";
 import defaultPhoto from '../assets/default photo.png';
+import Button from 'react-bootstrap/Button';
 import CommentList from './CommentList';
 
 const Post = (props) => {
-  const { postId, user_id, username, userImage, postImage, likes, caption, loggedInUsername } = props;
+  const { postId, user_id, username, userImage, postImage, likes, caption, allPosts, setAllPosts } = props;
   const [likeNum, setLikes] = useState(likes);
   const [clicked, setClicked] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -155,6 +156,24 @@ const Post = (props) => {
     }
   };
 
+  const deletePost = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch(`${url}/post/${postId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': sessionStorage.getItem('token')
+        },
+      });
+      setLoading(false);
+      setAllPosts(allPosts.filter(p => p.post_id != postId));
+    }
+    catch (err) {
+      console.log(err);
+    }
+  }
+
   const toggleReplyMode = () => {
     setIsReplying(!isReplying);
 
@@ -163,11 +182,13 @@ const Post = (props) => {
   const handleReplyTextChange = (e) => {
     setReplyText(e.target.value);
   };
+
   return (
     <div className='post'>
       <div className='post-handle'>
         <a href={`http://localhost:3000/profile/${user_id}`}><img className='post-avatar' src={userImage ?? defaultAvatar} alt='Avatar'/></a>
         <div className="username-container"><a className="post-username" href={`http://localhost:3000/profile/${user_id}`}>@{username}</a></div>
+        {sessionStorage.getItem('admin') === "yes" && <Button variant="danger" className="delete-post-button" onClick={deletePost} disabled={loading}>Delete Post</Button>}
       </div>
 
       <div className='post-photo'>
@@ -197,8 +218,6 @@ const Post = (props) => {
           onFetchComments={fetchComments}
         />
       </div>
-
-      
     </div>
   )
 }
