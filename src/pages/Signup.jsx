@@ -12,6 +12,7 @@ const Signup = () => {
     const [passwordVisibility, setPasswordVisibility] = useState(false);
     const [signupFailed, setSignupFailed] = useState(false);
     const [emailExists, setEmailExists] = useState(false);
+    const [fieldEmpty, setFieldEmpty] = useState(false);
 
     const navigatePages = useNavigate();
     
@@ -31,11 +32,25 @@ const Signup = () => {
         setSignupInfo({ ...signupInfo, [name]: value});
         setSignupFailed(false);
         setEmailExists(false);
+        setFieldEmpty(false);
+    }
+
+    function fieldIsEmpty(info) {
+        for (const [key, value] of Object.entries(info)) {
+            if (value === "") {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     const handleSignup = async () => {
         try {
-            console.log(signupInfo)
+            if (fieldIsEmpty(signupInfo)) {
+                setFieldEmpty(true);
+                return;
+            }
             setLoading(true);
             const body = JSON.stringify(signupInfo);
             const response = await fetch("https://photo-server-deplo.onrender.com/auth/register", {
@@ -58,7 +73,13 @@ const Signup = () => {
                 });
 
                 const profileData = await profileRes.json();
-
+                
+                if (profileData.role === "admin") {
+                    sessionStorage.setItem('admin', 'yes');
+                }
+                else {
+                    sessionStorage.setItem('admin', 'no');
+                }
                 window.location.href = `/redirect?token=${data.token}&userEmail=${signupInfo.email}&userId=${profileData.user_id}&userName=${signupInfo.username}`;
             } else if (response.status === 401){
                 console.log("Email exists.");
@@ -144,8 +165,12 @@ const Signup = () => {
                         >
                             {loading ? "Loading..." : "Create an account"}
                         </button>
-                        {signupFailed && <p>Signup failed</p>}
-                        {emailExists && <p>An account with this email already exists</p>}
+                        <div className="error-message-div">
+                            {signupFailed && <p className="error-message">Signup failed</p>}
+                            {emailExists && <p className="error-message">An account with this email already exists</p>}
+                            {fieldEmpty && <p className="error-message">All fields must have a value</p>}
+                        </div>
+                        
                     </div>            
                 <p className='line-break'><span>OR</span></p>
 

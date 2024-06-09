@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
-
 import Button from 'react-bootstrap/Button';
 import Navbar from 'react-bootstrap/Navbar';
-
 import Modal from 'react-bootstrap/Modal';
 import FriendsRec from './Friends';
-import './Navbar.css'
+import './Navbar.css';
+
 export default function NavbarComponent({ currentPage }) {
     const [showLogout, setShowLogout] = useState(false);
     const [showFriendsRec, setShowFriendsRec] = useState(false);

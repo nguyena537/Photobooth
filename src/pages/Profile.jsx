@@ -305,6 +305,8 @@ const Profile = () => {
                         likes={post.likes}
                         loggedInUsername={sessionStorage.getItem('user_username')}
                         user_id={post.user_id}
+                        allPosts={posts}
+                        setAllPosts={setPosts}
                       />
                     </Popup>
                   )}
@@ -313,7 +315,7 @@ const Profile = () => {
         
             : <div className="no-posts-container"><h1 className="no-posts">No posts</h1></div>}
 
-        {isLoggedInUserProfile && <Popup trigger={<button className="add-post-button">+</button>} position="right center" contentStyle={{ width: '512px', padding: '50px' }} onClose={() => setPreviewPostImg(null)} modal>
+        {isLoggedInUserProfile && <Popup trigger={<button className="add-post-button"><span className="add-post-plus">+</span></button>} position="right center" contentStyle={{ width: '512px', padding: '50px' }} onClose={() => setPreviewPostImg(null)} modal>
           <div className="add-post">
             <h1 className="form-header">Add Post</h1>
             <form className="add-post-form" onSubmit={handleAddPostSubmit}>

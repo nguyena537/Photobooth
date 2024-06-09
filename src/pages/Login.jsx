@@ -7,8 +7,8 @@ import hideIcon from '../assets/hide-icon.png'
 
 const Login = () => {
     const [loginInfo, setLoginInfo] = useState({email: "", password: ""});
-
     const [loginIncorrect, setLoginIncorrect] = useState(false);
+    const [fieldEmpty, setFieldEmpty] = useState(false);
     const [loading, setLoading] = useState(false);
 
     const navigatePages = useNavigate();
@@ -28,6 +28,7 @@ const Login = () => {
 
     const handleFormChange = (event) => {
         setLoginIncorrect(false);
+        setFieldEmpty(false);
         let { name, value } = event.target;
 
         if (name === "email") {
@@ -38,8 +39,22 @@ const Login = () => {
         }
     }
 
+    function fieldIsEmpty(info) {
+        for (const [key, value] of Object.entries(info)) {
+            if (value === "") {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     const sendLogin = async () => {
         try {
+            if (fieldIsEmpty(loginInfo)) {
+                setFieldEmpty(true);
+                return;
+            }
             setLoading(true);
             setLoginIncorrect(false);
             console.log(JSON.stringify(loginInfo));
@@ -65,6 +80,13 @@ const Login = () => {
                     },
                 });
                 const profileData = await profileRes.json();
+
+                if (profileData.role === "admin") {
+                    sessionStorage.setItem('admin', 'yes');
+                }
+                else {
+                    sessionStorage.setItem('admin', 'no');
+                }
                 window.location.href = `/redirect?token=${data.token}&userEmail=${profileData.user_email}&userId=${profileData.user_id}&userName=${profileData.user_username}`
             }
             else
@@ -134,8 +156,10 @@ const Login = () => {
                         <div className="submit">
                             <button type='submit' id='login-button' onClick={sendLogin} disabled={loading}>{loading ? "Loading..." : "Log in"}</button>
                         </div>
-
-                        {loginIncorrect && <p>Username or password is incorrect.</p>}
+                        <div className="error-message-div">
+                            {loginIncorrect && <p className="error-message">Username or password is incorrect.</p>}
+                            {fieldEmpty && <p className="error-message">All fields must have a value.</p>}
+                        </div>
 
                         <hr className="separator" />
                     </div>

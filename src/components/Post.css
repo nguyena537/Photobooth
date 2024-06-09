@@ -17,6 +17,7 @@
     justify-content: left;
     gap: 5px;
     align-items: center;
+    position: relative;
 }
 
 .username-container {
@@ -99,4 +100,10 @@ a {
 
 .comment-list {
     margin: 0;
+}
+
+.delete-post-button {
+    position: absolute;
+    right: 25px;
+    top: 6px;
 }

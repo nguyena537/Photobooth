@@ -167,3 +167,12 @@ body {
    display: flex;
    justify-content: center;
 }
+
+.error-message-div {
+   text-align: center;
+   margin-top: 10px;
+ }
+
+ .error-message {
+   color: red;
+ }
